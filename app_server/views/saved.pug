@@ -1,0 +1,17 @@
+-
+    // images from The Movie DB
+    const savedList = [
+        { image: "https://www.themoviedb.org/t/p/w600_and_h900_face/3Gkb6jm6962ADUPaCBqzz9CTbn9.jpg", title: "Twilight" },
+        { image: "https://image.tmdb.org/t/p/original/lf0TcOkheYUZKpeh7c8lqJHNk5O.jpg", title: "Heroes" },
+        { image: "https://www.themoviedb.org/t/p/w600_and_h900_face/tw3tzfXaSpmUZIB8ZNqNEGzMBCy.jpg", title: "The Gentlemen" },
+        { image: "https://image.tmdb.org/t/p/original/uKYUR8GPkKRCksczYDJb3pwZauo.jpg", title: "Stranger Things" },
+    ]
+include content-card
+
+.p-5
+    h3 Your List
+
+    // https://pugjs.org/language/mixins.html
+    .content-grid
+        each item in savedList 
+            +content-card(item.image, item.title)

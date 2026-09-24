@@ -1,0 +1,17 @@
+-
+    // images from The Movie DB
+    const savedSeries = [
+        { image: "https://image.tmdb.org/t/p/original/uKYUR8GPkKRCksczYDJb3pwZauo.jpg", title: "Stranger Things" },
+        { image: "https://image.tmdb.org/t/p/original/lf0TcOkheYUZKpeh7c8lqJHNk5O.jpg", title: "Heroes" },
+        { image: "https://image.tmdb.org/t/p/original/apbrbWs8M9lyOpJYU5WXrpFbk1Z.jpgg", title: "Dark" },
+        { image: "https://image.tmdb.org/t/p/original/pUhJGETy2sec4vEkiqJ9eGeIywc.jpg", title: "Smallville" },
+    ]
+include content-card
+
+.p-5
+    h3 Series
+
+    // https://pugjs.org/language/mixins.html
+    .content-grid
+        each item in savedSeries 
+            +content-card(item.image, item.title)

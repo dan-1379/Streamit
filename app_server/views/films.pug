@@ -1,0 +1,17 @@
+-
+    // images from The Movie DB
+   const savedFilms = [
+        { image: "https://www.themoviedb.org/t/p/w600_and_h900_face/yQvGrMoipbRoddT0ZR8tPoR7NfX.jpg", title: "Interstellar" },
+        { image: "https://www.themoviedb.org/t/p/w600_and_h900_face/apa5G43Hha7kH7wJG0gkkHT7FA9.jpg", title: "The Hunger Games" },
+        { image: "https://www.themoviedb.org/t/p/w600_and_h900_face/dXNAPwY7VrqMAo51EKhhCJfaGb5.jpg", title: "The Matrix" },
+        { image: "https://www.themoviedb.org/t/p/w600_and_h900_face/3Gkb6jm6962ADUPaCBqzz9CTbn9.jpg", title: "Twilight" },
+    ]
+include content-card
+
+.p-5
+    h3 Films
+
+    // https://pugjs.org/language/mixins.html
+    .content-grid.align-center
+        each item in savedFilms 
+            +content-card(item.image, item.title)

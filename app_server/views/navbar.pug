@@ -1,0 +1,25 @@
+// https://getbootstrap.com/docs/5.3/components/navbar/#how-it-works
+nav.navbar.navbar-expand-lg.navbar-dark.bg-black
+  .container-fluid
+    a(href="/home")
+        img(src="/images/streamit_logo_full.png", alt="Streamit logo" width="150")
+
+    button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+    #navbarNav.collapse.navbar-collapse
+        ul.navbar-nav.me-auto.fs-5
+            li.nav-item.text-light
+                a.nav-link.active(aria-current='page' href='#') Home
+            li.nav-item
+                a.nav-link(href='#') Series
+            li.nav-item
+                a.nav-link(href='#') Films
+            li.nav-item
+                a.nav-link(href='#') My List
+        
+        .d-flex.gap-2.align-items-center
+            i.bi.bi-search
+            
+            .bg-danger.rounded-circle.d-inline-flex.align-items-center.justify-content-center(style="width: 2em; height: 2em;")
+                i.bi.bi-person
+    

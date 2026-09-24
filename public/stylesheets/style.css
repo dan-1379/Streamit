@@ -3,3 +3,25 @@
 body {
   font-family: "Inter Variable", "Inter", system-ui, sans-serif;
 }
+
+/* 
+  image from https://www.themoviedb.org/tv/66732-stranger-things/images/backdrops
+  learned css gradient from https://stackoverflow.com/questions/2504071/how-do-i-combine-a-background-image-and-css3-gradient-on-the-same-element
+*/
+.hero-section {
+  background: 
+    /* Dark gradient vignette on the left to ensure high contrast for text */
+    linear-gradient(to right, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0) 100%),
+    /* Bottom fade to blend seamlessly into a black page background */
+    linear-gradient(to top, #000 0%, transparent 20%),
+    /* Hero Image */
+    url('https://image.tmdb.org/t/p/original/56v2KjBlU4XaOv9rVYEQypROD7P.jpg') center/cover no-repeat;
+}
+
+.content-grid {
+  display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 5em;
+    justify-content: center; /* Centers tracks if grid has extra width */
+    justify-items: center;
+}

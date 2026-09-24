@@ -5,9 +5,10 @@ block content
         .wall(aria-hidden="true")
 
         header.d-flex.justify-content-center.align-items-center.p-5
-            a.text-white.text-decoration-none.fs-4(href='/') LOGO
+            a(href="/") 
+                img(src="/images/streamit_logo_full.png", alt="Streamit logo" width="200")
         
-        .card.auth-card.w-50
+        .card.auth-card.w-50.mx-auto
             .card-body.p-4
                     h1.h3.fw-light.mb-1 Sign in
                     p.text-secondary.small.mb-4 Welcome back. Sign in to keep watching.
@@ -16,41 +17,37 @@ block content
                         .mb-3
                             label.form-label.small(for="email") Email address
                             .input-group
-                                span.input-group-text: i.bi.bi-person
-                                input#email.form-control(type="email" name="email" placeholder="youremail@email.com" autocomplete="email" required)
+                                span.input-group-text.border-0: i.bi.bi-person
+                                input#email.form-control(type="email" name="email" placeholder="youremail@email.com")
                         
                         .mb-3
                             label.form-label.small(for="password") Password
                             .input-group
                                 span.input-group-text: i.bi.bi-lock
-                                input#password.form-control(type="password" name="password" placeholder="Password" autocomplete="current-password" required)
+                                input#password.form-control(type="password" name="password" placeholder="********")
                         
-                        .d-flex.justify-content-between.align-items-center.small.mb-3
+                        .d-flex.flex-column.flex-sm-row.justify-content-between.align-items-left.small.mb-3
                             .form-check
                                 input#remember.form-check-input(type="checkbox" name="remember")
                                 label.form-check-label(for="remember") Remember me
-                            a.link-light(href="#") Forgot password?
+                            a.text-dark(href="/") Forgot password?
                         
-                        button.btn.btn-danger.w-100(type="submit") Log in
+                        a.btn.btn-danger.w-100(href="/home") Log in
                     
-                    .d-flex.align-items-center.gap-2.my-3.text-secondary.small
+                    .d-flex.flex-row.flex-column-small.align-items-center.gap-2.my-3.text-secondary.small
                         hr.flex-grow-1
                         span Or continue with
                         hr.flex-grow-1
                     
-                    .row.g-2
-                        .col-6
-                            a.btn.btn-outline-light.btn-sm.w-100(href="#")
+                    .d-flex.flex-column.flex-sm-row.gap-5
+                        a.btn.bg-secondary.p-2.text-white.btn-sm.w-100(href="#")
                             i.bi.bi-google.me-1
                             |  Google
-                        .col-6
-                            a.btn.btn-outline-light.btn-sm.w-100(href="#")
+
+                        a.btn.bg-secondary.p-2.text-white.btn-sm.w-100(href="#")
                             i.bi.bi-apple.me-1
                             |  Apple
                     
-                    p.small.text-center.mt-4.mb-0 Don't have an account yet?
-
-                        
-
-
-                        
+                    .d-flex.flex-column.flex-sm-row.align-items-left.gap-1.mt-4.small
+                        span Don't have an account yet?
+                        a.text-decoration-underline.text-black(href="/signup") Sign up            

@@ -1,0 +1,45 @@
+extends layout 
+
+block content
+    section.position-relative.d-flex.flex-column.min-vh-100
+        .wall(aria-hidden="true")
+
+        header.d-flex.justify-content-center.align-items-center.p-5
+            a(href="/") 
+                img(src="/images/streamit_logo_full.png", alt="Streamit logo" width="200")
+        
+        .card.auth-card.w-50.mx-auto
+            .card-body.p-4
+                    h1.h3.fw-light.mb-1 Sign in
+                    p.text-secondary.small.mb-4 Welcome back. Sign in to keep watching.
+
+                    form(method="post" action="/signin")
+                        .mb-3
+                            label.form-label.small(for="firstname") First Name
+                            .input-group
+                                span.input-group-text.border-0: i.bi.bi-person
+                                input#email.form-control(type="text" name="firstname" placeholder="Firstname")
+                        
+                        .mb-3
+                            label.form-label.small(for="lastname") Last Name
+                            .input-group
+                                span.input-group-text.border-0: i.bi.bi-person
+                                input#email.form-control(type="text" name="lastname" placeholder="Lastname")
+
+                        .mb-3
+                            label.form-label.small(for="email") Email address
+                            .input-group
+                                span.input-group-text.border-0: i.bi.bi-person
+                                input#email.form-control(type="email" name="email" placeholder="youremail@email.com")
+                        
+                        .mb-3
+                            label.form-label.small(for="password") Password
+                            .input-group
+                                span.input-group-text: i.bi.bi-lock
+                                input#password.form-control(type="password" name="password" placeholder="********")
+                        
+                        a.btn.btn-danger.w-100(href="/home") Sign up
+                    
+                    .d-flex.flex-column.flex-sm-row.align-items-left.gap-1.mt-4.small
+                        span Already have an account?
+                        a.text-decoration-underline.text-black(href="/signin") Sign in            
