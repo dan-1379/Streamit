@@ -1,0 +1,56 @@
+extends layout 
+
+block content
+    section.position-relative.d-flex.flex-column.min-vh-100
+        .wall(aria-hidden="true")
+
+        header.d-flex.justify-content-center.align-items-center.p-5
+            a.text-white.text-decoration-none.fs-4(href='/') LOGO
+        
+        .card.auth-card.w-50
+            .card-body.p-4
+                    h1.h3.fw-light.mb-1 Sign in
+                    p.text-secondary.small.mb-4 Welcome back. Sign in to keep watching.
+
+                    form(method="post" action="/signin")
+                        .mb-3
+                            label.form-label.small(for="email") Email address
+                            .input-group
+                                span.input-group-text: i.bi.bi-person
+                                input#email.form-control(type="email" name="email" placeholder="youremail@email.com" autocomplete="email" required)
+                        
+                        .mb-3
+                            label.form-label.small(for="password") Password
+                            .input-group
+                                span.input-group-text: i.bi.bi-lock
+                                input#password.form-control(type="password" name="password" placeholder="Password" autocomplete="current-password" required)
+                        
+                        .d-flex.justify-content-between.align-items-center.small.mb-3
+                            .form-check
+                                input#remember.form-check-input(type="checkbox" name="remember")
+                                label.form-check-label(for="remember") Remember me
+                            a.link-light(href="#") Forgot password?
+                        
+                        button.btn.btn-danger.w-100(type="submit") Log in
+                    
+                    .d-flex.align-items-center.gap-2.my-3.text-secondary.small
+                        hr.flex-grow-1
+                        span Or continue with
+                        hr.flex-grow-1
+                    
+                    .row.g-2
+                        .col-6
+                            a.btn.btn-outline-light.btn-sm.w-100(href="#")
+                            i.bi.bi-google.me-1
+                            |  Google
+                        .col-6
+                            a.btn.btn-outline-light.btn-sm.w-100(href="#")
+                            i.bi.bi-apple.me-1
+                            |  Apple
+                    
+                    p.small.text-center.mt-4.mb-0 Don't have an account yet?
+
+                        
+
+
+                        
