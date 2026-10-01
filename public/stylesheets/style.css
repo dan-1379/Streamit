@@ -25,3 +25,10 @@ body {
     justify-content: center; /* Centers tracks if grid has extra width */
     justify-items: center;
 }
+/* TEMPORARY IMAGE FOR TESTING */
+.bg-custom-image {
+  background-image: url('https://i.redd.it/zjgs096khv591.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
