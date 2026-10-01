@@ -1,17 +1,16 @@
 header.hero-section.position-relative.d-flex.align-items-center.text-white.p-4.p-md-5
     .container-fluid.py-5
         .position-absolute.top-0.left-0.py-2
-            img(src="/images/streamit_logo_s.png" alt="Logo" width="15" height="30")
+            img(src=hero.logo alt="Logo" width="15" height="30")
 
-        h1.fs-3.fw-bold.mb-2 Stranger Things
+        h1.fs-3.fw-bold.mb-2= hero.title
 
         .d-flex.align-items-center.gap-2.mb-3.text-light.small
-            span 2025
-            span 5 Seasons
-            span.badge.bg-secondary.border.border-light 15
+            span= hero.year
+            span= hero.seasons
+            span.badge.bg-secondary.border.border-light= hero.rating
         
-        p.lead.fs-6.text-light.mb-4
-            | Welcome to Hawkins, Indiana, a small town with big secrets, strange sightings, government cover-ups... and a dark force that turns everything upside down.
+        p.lead.fs-6.text-light.mb-4= hero.description
         
         .d-flex.gap-2
             a.btn.btn-light.fw-semibold.d-flex.align-items-center.gap-2.px-4(href="#")
