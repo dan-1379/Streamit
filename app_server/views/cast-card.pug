@@ -1,0 +1,9 @@
+mixin cast-card(actor)
+  .cast-card.text-start
+    .cast-image-wrapper.mb-2.overflow-hidden.rounded-3
+      img.img-fluid.w-100.object-fit-cover(
+        src=actor.image, 
+        alt=actor.name,
+      )
+    h6.text-white.fw-bold.mb-0.text-truncate= actor.name
+    small.text-secondary.d-block.text-truncate= actor.character

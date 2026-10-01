@@ -11,6 +11,7 @@ router.get('/signin', ctrlAuth.signin);
 router.get('/signup', ctrlAuth.signup);
 
 router.get('/home', ctrlContent.home);
-// router.get('/content', ctrlContent.contentInfo);
+
+router.get('/title/:id', ctrlContent.content);
 
 module.exports = router;

@@ -1,3 +1,28 @@
 extends layout
+include cast-card
 
 block content
+  include navbar
+
+  header.hero-section.position-relative.d-flex.align-items-center.text-white.p-4.p-md-5(
+    style=`background-image: linear-gradient(to top, #141414, transparent), url('${item.coverImage || item.image}'); background-size: cover; background-position: center; min-height: 60vh;`
+  )
+    .position-absolute.top-0.left-0.py-2
+        img(src="/images/streamit_logo_s.png" alt="Logo" width="15" height="30")
+
+  main
+    .p-5
+        include contentIcons
+
+        h1.display-4.fw-bold= item.title
+        .d-flex.gap-3.align-items-center.my-3
+            span.badge.bg-danger= item.rating + "+"
+            span= item.year
+            span= item.seasons
+        p.lead= item.description
+
+            if item.cast
+                h2 Cast
+                .cast-grid
+                    each cast in item.cast 
+                        +cast-card(cast)
