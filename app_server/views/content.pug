@@ -8,21 +8,37 @@ block content
     style=`background-image: linear-gradient(to top, #141414, transparent), url('${item.coverImage || item.image}'); background-size: cover; background-position: center; min-height: 60vh;`
   )
     .position-absolute.top-0.left-0.py-2
-        img(src="/images/streamit_logo_s.png" alt="Logo" width="15" height="30")
+      img(src="/images/logo/streamit_logo_s.png" alt="Logo" width="15" height="30")
 
   main
     .p-5
-        include contentIcons
+      include contentIcons
 
-        h1.display-4.fw-bold= item.title
-        .d-flex.gap-3.align-items-center.my-3
-            span.badge.bg-danger= item.rating + "+"
-            span= item.year
-            span= item.seasons
-        p.lead= item.description
+      h1.display-4.fw-bold= item.title
+      .d-flex.gap-3.align-items-center.my-3
+        span.badge.bg-danger= item.rating + "+"
+        span= item.year
+        span= item.seasons
+      p.lead= item.description
 
-            if item.cast
-                h2 Cast
-                .cast-grid
-                    each cast in item.cast 
-                        +cast-card(cast)
+      if item.seasons != "Film"
+        - const seasonCount = parseInt(item.seasons.split(" ")[0], 10) || 0
+
+        select.form-select.form-select-lg.w-auto.bg-dark.text-white.border-secondary.my-3(name="season" aria-label="Select season")
+          option(value="") Select season
+          each n in Array.from({ length: seasonCount }, (_, i) => i + 1)
+            option(value=n) Season #{n}
+
+        h2 Episodes
+
+      if item.trailers
+        h2 Trailers
+
+      if item.cast
+        h2 Cast
+        .cast-grid
+          each cast in item.cast
+            +cast-card(cast)
+    
+    if item.alsoWatched
+        h2 People also watched
