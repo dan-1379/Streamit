@@ -1,0 +1,10 @@
+mixin episode-card(episode)
+    .cast-card.text-start.cursor-pointer
+        .cast-image-wrapper.mb-2.rounded-3
+            img.img-fluid.w-100.object-fit-cover(
+                src=episode.image, 
+                alt=episode.title,
+            )
+        h6.text-white.fw-bold.mb-0= episode.title
+        small.text-secondary.d-block= episode.description
+        small.text-secondary.d-block= episode.time

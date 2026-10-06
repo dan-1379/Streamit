@@ -1,5 +1,7 @@
 extends layout
 include cast-card
+include episode-card
+include content-card
 
 block content
   include navbar
@@ -25,20 +27,29 @@ block content
         - const seasonCount = parseInt(item.seasons.split(" ")[0], 10) || 0
 
         select.form-select.form-select-lg.w-auto.bg-dark.text-white.border-secondary.my-3(name="season" aria-label="Select season")
-          option(value="") Select season
           each n in Array.from({ length: seasonCount }, (_, i) => i + 1)
             option(value=n) Season #{n}
 
-        h2 Episodes
+        h2.mt-4 Episodes
+        .episode-grid
+          each episode in item.episodes
+            +episode-card(episode)
 
       if item.trailers
-        h2 Trailers
+        h2.mt-4 Trailers
+        .row
+          .col-12.col-lg-8.col-xl-6
+            .ratio.ratio-16x9
+              iframe(
+                src=item.trailers.replace('watch?v=', 'embed/')
+                title=`${item.title} trailer`
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              )
 
       if item.cast
-        h2 Cast
+        h2.mt-4 Cast
         .cast-grid
           each cast in item.cast
             +cast-card(cast)
-    
-    if item.alsoWatched
-        h2 People also watched

@@ -58,3 +58,23 @@ body {
   justify-content: center;
   justify-items: center;
 }
+
+.episode-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 2.5rem 1.5rem;
+  align-items: start;
+}
+
+.episode-grid {
+  width: 100%;
+}
+
+.cast-card {
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.cast-card:hover {
+  scale: 1.01;
+}
