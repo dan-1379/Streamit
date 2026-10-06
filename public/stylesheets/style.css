@@ -70,11 +70,11 @@ body {
   width: 100%;
 }
 
-.cast-card {
+.cast-card, .episode-card {
   cursor: pointer;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-.cast-card:hover {
+.cast-card:hover, .episode-card:hover {
   scale: 1.01;
 }

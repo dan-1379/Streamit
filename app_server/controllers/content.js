@@ -83,7 +83,7 @@ const catalog = {
     episodes: [
       {image: "/images/the-gentlemen/the-gentlemen-episodes/Refined Aggression.webp", title: "Refined Aggression", description: "When the Duke of Halstead dies, his second son inherits everything, including the title, house and grounds — plus a whole heap of trouble.", time: "1h 8m"},
       {image: "/images/the-gentlemen/the-gentlemen-episodes/Tackle Tommy.webp", title: "Tackle Tommy", description: "The toffs and their gamekeeper hunt a new kind of prey. Susie enlists some help to clean up the mess, and Halstead Manor is blessed with a holy visitor.", time: "1h 4m"},
-      {image: "/images/the-gentlemen/the-gentlemen-episodes/Where's My Weed At?.webp", title: "Where's My Weed At?", description: "Jimmy gets distracted on the job. As supply chain issues delay deliveries, the Horniman brothers take a risky ride to placate a dissatisfied customer.", time: "51m"},
+      {image: "/images/the-gentlemen/the-gentlemen-episodes/Where My Weed At.webp", title: "Where's My Weed At?", description: "Jimmy gets distracted on the job. As supply chain issues delay deliveries, the Horniman brothers take a risky ride to placate a dissatisfied customer.", time: "51m"},
       {image: "/images/the-gentlemen/the-gentlemen-episodes/ An Unsympathetic Gentleman.webp", title: "An Unsympathetic Gentleman", description: "Susie is keen to expand the business. Eddie is determined that it won't be on his estate, so the Hornimans search for alternative locations.", time: "42m"},
       {image: "/images/the-gentlemen/the-gentlemen-episodes/I've Hundreds of Cousins.webp", title: "I've Hundreds of Cousins", description: "Distribution issues in Europe and a theft on the farm cause a headache for Eddie and Susie — until they make a new acquaintance who can help them out.", time: "45m"},
       {image: "/images/the-gentlemen/the-gentlemen-episodes/All Eventualities.webp", title: "All Eventualities", description: "Eddie's doubts about Susie continue to grow. But there's 15 million pounds of dirty money to be laundered before she'll consider leaving the estate.", time: "49m"},
@@ -137,11 +137,23 @@ const catalog = {
     image: "/images/smallville/smallville.jpg",
     type: "series",
     episodes: [
-      {image: "", title: "", description: "", time: ""},
-
+      {image: "/images/smallville/smallville-episodes/Pilot.webp", title: "Pilot", description: "The first episode tells the story of the meteor shower that hit Smallville and changed life in the Kansas town forever. Clark Kent meets Lex Luthor for the first time and encounters the first in a long line of humans mutated by the strange green meteor rocks that accompanied him on his journey to Earth.", time: "45m"},
+      {image: "/images/smallville/smallville-episodes/Metamorphosis.webp", title: "Metamorphosis", description: "Clark must deal with Greg, a nerdish bug collector with a crush on Lana who gains the ability of various insects and uses them to lash out at anyone who opposes him.", time: "45m"},
+      {image: "/images/smallville/smallville-episodes/Hothead.webp", title: "Hothead", description: "An abusive and hot-tempered football coach gains the ability to control and project fire.", time: "44m"},
+      {image: "/images/smallville/smallville-episodes/X-Ray.webp", title: "X-Ray", description: "Clark begins experiencing vision problems as his x-ray vision begins manifesting. Meanwhile a mysterious shapeshifter is going about town using his or her abilities to steal and get others in trouble.", time: "44m"},
+      {image: "/images/smallville/smallville-episodes/Cool.webp", title: "Cool", description: "A jock named Sean gains the ability to absorb heat from everything and everyone around him, and begins preying on people to gain the heat he needs to survive.", time: "43m"},
+      {image: "/images/smallville/smallville-episodes/ Hourglass.webp", title: "Hourglass", description: "An old man uses green meteor rock to reverse the aging process, then gain vengeance on the children of the jury that put him away decades earlier. Meanwhile, another woman at the same old folks' home has prophetic abilities and she sees the futures of both Clark and Lex.", time: "44m"},
+      {image: "/images/smallville/smallville-episodes/ Craving.webp", title: "Craving", description: "A weight-obsessed teen dieting on kryptonite-infected vegetables gains her fondest dream...but must feed on the fat of others to maintain her enhanced appearance.", time: "43m"},
+      {image: "/images/smallville/smallville-episodes/ Jitters.webp", title: "Jitters", description: "An experiment at the Luthor fertilizer plant makes an old friend of the Kents literally shake and jitter, and he seeks vengeance against the Luthors, who hide the secret of his transformation behind Level Three at the local plant.", time: "41m"},
     ],
-    trailers: "",
-    cast: []
+    trailers: "https://www.youtube.com/embed/70Y32si4yb8",
+    cast: [
+      {image: "/images/smallville/smallville-cast/Tom Welling.webp", name: "Tom Welling", character: "Clark Kent"},
+      {image: "/images/smallville/smallville-cast/Kristin Kreuk.webp", name: "Kristin Kreuk", character: "Lana Lang"},
+      {image: "/images/smallville/smallville-cast/Michael Rosenbaum.webp", name: "Michael Rosenbaum", character: "Lex Luthor"},
+      {image: "/images/smallville/smallville-cast/Allison Mack.webp", name: "Allison Mack", character: "Chloe Sullivan"},
+
+    ]
   },
   "interstellar": {
     id: "interstellar",
