@@ -4,10 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+require('dotenv').config({ path: './atlas-credentials.env' });
+require('./app_server/models/db');
+
 const indexRouter = require('./app_server/routes/index');
 const usersRouter = require('./app_server/routes/users');
-
-require('./app_server/models/db');
 
 var app = express();
 
