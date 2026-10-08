@@ -25,7 +25,7 @@ const catalog = {
       {image: "/images/stranger-things/stranger-things-cast/fw.webp", name: "Finn Wolfhard", character: "Mike Wheeler"},
       {image: "/images/stranger-things/stranger-things-cast/cm.webp", name: "Caleb McLaughlin", character: "Lucas Sinclair"},
       {image: "/images/stranger-things/stranger-things-cast/gm.webp", name: "Gaten Matarazzo", character: "Dustin Henderson"},
-    ],
+    ]
   },
   "twilight": {
     id: "twilight",
@@ -38,10 +38,10 @@ const catalog = {
     type: "film",
     trailers: "https://www.youtube.com/embed/uxjNDE2fMjI",
     cast: [
-      {image: "/images/twilight/twilight-cast/BB.webp", name: "Kristen Stewart", character: "Bella Swan"},
-      {image: "/images/twilight/twilight-cast/KS.webp", name: "Robert Pattinson", character: "Edward Cullen"},
-      {image: "/images/twilight/twilight-cast/PF.webp", name: "Billy Burke", character: "Charlie Swan"},
-      {image: "/images/twilight/twilight-cast/RP.webp", name: "Peter Facinelli", character: "Dr. Carlisle Cullen"},
+      {image: "/images/twilight/twilight-cast/KS.webp", name: "Kristen Stewart", character: "Bella Swan"},
+      {image: "/images/twilight/twilight-cast/RP.webp", name: "Robert Pattinson", character: "Edward Cullen"},
+      {image: "/images/twilight/twilight-cast/BB.webp", name: "Billy Burke", character: "Charlie Swan"},
+      {image: "/images/twilight/twilight-cast/PF.webp", name: "Peter Facinelli", character: "Dr. Carlisle Cullen"},
     ],
   },
   "heroes": {
@@ -163,7 +163,14 @@ const catalog = {
     rating: "12",
     description: "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
     image: "/images/interstellar/interstellar.jpg",
-    type: "film"
+    type: "film",
+    trailers: "https://www.youtube.com/embed/zSWdZVtXT7E",
+    cast: [
+      {image: "/images/interstellar/interstellar-cast/Casey Affleck.webp", name: "Casey Affleck", character: "Tom"},
+      {image: "/images/interstellar/interstellar-cast/Anne Hathaway.webp", name: "Anne Hathaway", character: "Brand"},
+      {image: "/images/interstellar/interstellar-cast/Michael Caine.webp", name: "Michael Caine", character: "Professor Brand"},
+      {image: "/images/interstellar/interstellar-cast/Jessica Chastain.webp", name: "Jessica Chastain", character: "Murph"},
+    ]
   },
   "hunger-games": {
     id: "hunger-games",
@@ -173,7 +180,14 @@ const catalog = {
     rating: "12",
     description: "Katniss Everdeen voluntarily takes her younger sister's place in the Hunger Games.",
     image: "/images/the-hunger-games/the-hunger-games.jpg",
-    type: "film"
+    type: "film",
+    trailers: "https://www.youtube.com/embed/mfmrPu43DF8",
+    cast: [
+      {image: "/images/the-hunger-games/the-hunger-games-cast/Jennifer Lawrence.webp", name: "Jennifer Lawrence", character: "Katniss Everdeen"},
+      {image: "/images/the-hunger-games/the-hunger-games-cast/Josh Hutcherson.webp", name: "Josh Hutcherson", character: "Peeta Mellark"},
+      {image: "/images/the-hunger-games/the-hunger-games-cast/Liam Hemsworth.webp", name: "Liam Hemsworth", character: "Gale Hawthorne"},
+      {image: "/images/the-hunger-games/the-hunger-games-cast/Woody Harrelson.webp", name: "Woody Harrelson", character: "Haymitch Abernathy"}
+    ]
   },
   "the-matrix": {
     id: "the-matrix",
@@ -183,7 +197,14 @@ const catalog = {
     rating: "15",
     description: "A computer hacker learns about the true nature of his reality and his role in the war against its controllers.",
     image: "/images/the-matrix/the-matrix.jpg",
-    type: "film"
+    type: "film",
+    trailers: "https://www.youtube.com/embed/vKQi3bBA1y8",
+    cast: [
+      {image: "/images/the-matrix/the-matrix-cast/Keanu Reeves.webp", name: "Keanu Reeves", character: "Neo"},
+      {image: "/images/the-matrix/the-matrix-cast/Laurence Fishburne.webp", name: "Laurence Fishburne", character: "Morpheus"},
+      {image: "/images/the-matrix/the-matrix-cast/Carrie-Anne Moss.webp", name: "Carrie-Anne Moss", character: "Trinity"},
+      {image: "/images/the-matrix/the-matrix-cast/Hugo Weaving.webp", name: "Hugo Weaving", character: "Agent Smith"}
+    ]
   }
 };
 
