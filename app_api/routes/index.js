@@ -1,29 +1,28 @@
 const express = require('express');
 const router = express.Router();
-const ctrlLocations = require('../controllers/locations');
-const ctrlReviews = require('../controllers/reviews');
+const ctrlUsers = require('../controllers/auth');
+const ctrlContent = require('../controllers/content');
 
-// locations
+// users
 router
-  .route('/locations')
-  .get(ctrlLocations.locationsListByDistance)
-  .post(ctrlLocations.locationsCreate);
-
-router
-  .route('/locations/:locationid')
-  .get(ctrlLocations.locationsReadOne)
-  .put(ctrlLocations.locationsUpdateOne)
-  .delete(ctrlLocations.locationsDeleteOne);
-  
-// reviews
-router
-  .route('/locations/:locationid/reviews')
-  .post(ctrlReviews.reviewsCreate);
+  .route('/users')
+  .post(ctrlUsers.userCreateOne);
 
 router
-  .route('/locations/:locationid/reviews/:reviewid')
-  .get(ctrlReviews.reviewsReadOne)
-  .put(ctrlReviews.reviewsUpdateOne)
-  .delete(ctrlReviews.reviewsDeleteOne);
+  .route('/users/:userid')
+  .get(ctrlUsers.userReadOne)
+  .put(ctrlUsers.userUpdateOne)
+  .delete(ctrlUsers.userDeleteOne);
+
+// content
+router
+  .route('/content')
+  .post(ctrlContent.contentCreateOne);
+
+router
+  .route('/content/:contentid')
+  .get(ctrlContent.contentReadOne)
+  .put(ctrlContent.contentUpdateOne)
+  .delete(ctrlContent.contentDeleteOne);
 
 module.exports = router;
