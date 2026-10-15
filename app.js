@@ -4,7 +4,17 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-require('dotenv').config({ path: './atlas-credentials.env' });
+const os = require('os');
+
+require('dotenv').config({
+  path: path.join(
+    os.homedir(),
+    'OneDrive - Munster Technological University',
+    'Documents',
+    'atlas-credentials.env'
+  ),
+});
+
 require('./app_api/models/db');
 
 const indexRouter = require('./app_server/routes/index');
