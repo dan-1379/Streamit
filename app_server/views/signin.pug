@@ -10,44 +10,47 @@ block content
         
         .card.auth-card.w-50.mx-auto
             .card-body.p-4
-                    h1.h3.fw-light.mb-1 Sign in
-                    p.text-secondary.small.mb-4 Welcome back. Sign in to keep watching.
+                h1.h3.fw-light.mb-1 Sign in
+                p.text-secondary.small.mb-4 Welcome back. Sign in to keep watching.
 
-                    form(method="post" action="/signin")
-                        .mb-3
-                            label.form-label.small(for="email") Email address
-                            .input-group
-                                span.input-group-text.border-0: i.bi.bi-person
-                                input#email.form-control(type="email" name="email" placeholder="youremail@email.com")
-                        
-                        .mb-3
-                            label.form-label.small(for="password") Password
-                            .input-group
-                                span.input-group-text: i.bi.bi-lock
-                                input#password.form-control(type="password" name="password" placeholder="********")
-                        
-                        .d-flex.flex-column.flex-sm-row.justify-content-between.align-items-left.small.mb-3
-                            .form-check
-                                input#remember.form-check-input(type="checkbox" name="remember")
-                                label.form-check-label(for="remember") Remember me
-                            a.text-dark(href="/") Forgot password?
-                        
-                        a.btn.btn-danger.w-100(href="/home") Log in
-                    
-                    .d-flex.flex-row.flex-column-small.align-items-center.gap-2.my-3.text-secondary.small
-                        hr.flex-grow-1
-                        span Or continue with
-                        hr.flex-grow-1
-                    
-                    .d-flex.flex-column.flex-sm-row.gap-5
-                        a.btn.bg-secondary.p-2.text-white.btn-sm.w-100(href="#")
-                            i.bi.bi-google.me-1
-                            |  Google
+                if error
+                    .alert.alert-danger.small.py-2= error
 
-                        a.btn.bg-secondary.p-2.text-white.btn-sm.w-100(href="#")
-                            i.bi.bi-apple.me-1
-                            |  Apple
+                form(method="post" action="/signin")
+                    .mb-3
+                        label.form-label.small(for="email") Email address
+                        .input-group
+                            span.input-group-text.border-0: i.bi.bi-envelope
+                            input#email.form-control(type="email" name="email" placeholder="youremail@email.com" required)
                     
-                    .d-flex.flex-column.flex-sm-row.align-items-left.gap-1.mt-4.small
-                        span Don't have an account yet?
-                        a.text-decoration-underline.text-black(href="/signup") Sign up            
+                    .mb-3
+                        label.form-label.small(for="password") Password
+                        .input-group
+                            span.input-group-text: i.bi.bi-lock
+                            input#password.form-control(type="password" name="password" placeholder="********" required)
+                    
+                    .d-flex.flex-column.flex-sm-row.justify-content-between.align-items-left.small.mb-3
+                        .form-check
+                            input#remember.form-check-input(type="checkbox" name="remember")
+                            label.form-check-label(for="remember") Remember me
+                        a.text-dark(href="/") Forgot password?
+                    
+                    button.btn.btn-danger.w-100(type="submit") Log in
+                
+                .d-flex.flex-row.flex-column-small.align-items-center.gap-2.my-3.text-secondary.small
+                    hr.flex-grow-1
+                    span Or continue with
+                    hr.flex-grow-1
+                
+                .d-flex.flex-column.flex-sm-row.gap-5
+                    a.btn.bg-secondary.p-2.text-white.btn-sm.w-100(href="#")
+                        i.bi.bi-google.me-1
+                        |  Google
+
+                    a.btn.bg-secondary.p-2.text-white.btn-sm.w-100(href="#")
+                        i.bi.bi-apple.me-1
+                        |  Apple
+                
+                .d-flex.flex-column.flex-sm-row.align-items-left.gap-1.mt-4.small
+                    span Don't have an account yet?
+                    a.text-decoration-underline.text-black(href="/signup") Sign up

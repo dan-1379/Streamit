@@ -13,6 +13,13 @@ const userCreateOne = function(req, res) {
         .json(user);
     })
     .catch(err => {
+        // MongoDB Duplicate Key Check
+        if (err.code === 11000) {
+            return res
+            .status(409) // Request cannot be processed as it clashes with the current state of the target resource
+            .json({ message: "An account with that email already exists", error: err });
+        }
+
         res
         .status(400)
         .json({ message: "Error creating user", error: err });
@@ -57,9 +64,37 @@ const userDeleteOne = function(req, res) {
     .json({"status" : "success"});
 }
 
+const userLogin = function(req, res) {
+    if (req.body && req.body.email && req.body.password) {
+        User
+        .findOne({ email: req.body.email })
+        .then(user => {
+            if (!user || user.password !== req.body.password) {
+                return res
+                    .status(401
+                    .json({ message: "Invalid email or password" })
+                )
+            }
+            res
+            .status(200)
+            .json({ _id: user._id, name: user.name, email: user.email })
+        })
+        .catch(err => {
+                res
+                .status(500)
+                .json({ message: "Error logging in", error: err });
+        })
+    } else {
+        res
+        .status(400)
+        .json({ message: "Email and password are required" });
+    }
+}
+
 module.exports = {
     userCreateOne,
     userReadOne,
     userDeleteOne,
-    userUpdateOne
+    userUpdateOne,
+    userLogin
 };

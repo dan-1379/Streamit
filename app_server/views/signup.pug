@@ -10,36 +10,39 @@ block content
         
         .card.auth-card.w-50.mx-auto
             .card-body.p-4
-                    h1.h3.fw-light.mb-1 Sign in
-                    p.text-secondary.small.mb-4 Welcome back. Sign in to keep watching.
+                h1.h3.fw-light.mb-1 Sign up
+                p.text-secondary.small.mb-4 Create an account to start watching.
 
-                    form(method="post" action="/signin")
-                        .mb-3
-                            label.form-label.small(for="firstname") First Name
-                            .input-group
-                                span.input-group-text.border-0: i.bi.bi-person
-                                input#email.form-control(type="text" name="firstname" placeholder="Firstname")
-                        
-                        .mb-3
-                            label.form-label.small(for="lastname") Last Name
-                            .input-group
-                                span.input-group-text.border-0: i.bi.bi-person
-                                input#email.form-control(type="text" name="lastname" placeholder="Lastname")
+                if error
+                    .alert.alert-danger.small.py-2= error
 
-                        .mb-3
-                            label.form-label.small(for="email") Email address
-                            .input-group
-                                span.input-group-text.border-0: i.bi.bi-person
-                                input#email.form-control(type="email" name="email" placeholder="youremail@email.com")
-                        
-                        .mb-3
-                            label.form-label.small(for="password") Password
-                            .input-group
-                                span.input-group-text: i.bi.bi-lock
-                                input#password.form-control(type="password" name="password" placeholder="********")
-                        
-                        a.btn.btn-danger.w-100(href="/home") Sign up
+                form(method="post" action="/signup")
+                    .mb-3
+                        label.form-label.small(for="firstname") First name
+                        .input-group
+                            span.input-group-text.border-0: i.bi.bi-person
+                            input#firstname.form-control(type="text" name="firstname" placeholder="First name" required)
                     
-                    .d-flex.flex-column.flex-sm-row.align-items-left.gap-1.mt-4.small
-                        span Already have an account?
-                        a.text-decoration-underline.text-black(href="/signin") Sign in            
+                    .mb-3
+                        label.form-label.small(for="lastname") Last name
+                        .input-group
+                            span.input-group-text.border-0: i.bi.bi-person
+                            input#lastname.form-control(type="text" name="lastname" placeholder="Last name" required)
+
+                    .mb-3
+                        label.form-label.small(for="email") Email address
+                        .input-group
+                            span.input-group-text.border-0: i.bi.bi-envelope
+                            input#email.form-control(type="email" name="email" placeholder="youremail@email.com" required)
+                    
+                    .mb-3
+                        label.form-label.small(for="password") Password
+                        .input-group
+                            span.input-group-text: i.bi.bi-lock
+                            input#password.form-control(type="password" name="password" placeholder="********" required)
+                    
+                    button.btn.btn-danger.w-100(type="submit") Sign up
+                
+                .d-flex.flex-column.flex-sm-row.align-items-left.gap-1.mt-4.small
+                    span Already have an account?
+                    a.text-decoration-underline.text-black(href="/signin") Sign in

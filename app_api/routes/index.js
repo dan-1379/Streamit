@@ -5,6 +5,10 @@ const ctrlContent = require('../controllers/content');
 
 // users
 router
+  .route("/login")
+  .post(ctrlUsers.userLogin)
+
+router
   .route('/users')
   .post(ctrlUsers.userCreateOne);
 
@@ -17,6 +21,7 @@ router
 // content
 router
   .route('/content')
+  .get(ctrlContent.contentReadAll)
   .post(ctrlContent.contentCreateOne);
 
 router
