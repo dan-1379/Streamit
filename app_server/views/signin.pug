@@ -14,7 +14,9 @@ block content
                 p.text-secondary.small.mb-4 Welcome back. Sign in to keep watching.
 
                 if error
-                    .alert.alert-danger.small.py-2= error
+                    .alert.alert-danger.d-flex.align-items-center.gap-2.small.py-2(role="alert")
+                        i.bi.bi-exclamation-triangle-fill.flex-shrink-0
+                        span= error
 
                 form(method="post" action="/signin")
                     .mb-3

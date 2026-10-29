@@ -71,9 +71,8 @@ const userLogin = function(req, res) {
         .then(user => {
             if (!user || user.password !== req.body.password) {
                 return res
-                    .status(401
+                    .status(401)
                     .json({ message: "Invalid email or password" })
-                )
             }
             res
             .status(200)
