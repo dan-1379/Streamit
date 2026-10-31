@@ -5,15 +5,18 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 const os = require('os');
+const fs = require('fs');
 
-require('dotenv').config({
-  path: path.join(
+const oneDriveEnv = path.join(
     os.homedir(),
     'OneDrive - Munster Technological University',
     'Documents',
     'atlas-credentials.env'
-  ),
-});
+);
+
+require('dotenv').config({
+  path: fs.existsSync(oneDriveEnv) ? oneDriveEnv : path.join(__dirname, '.env')
+})
 
 require('./app_api/models/db');
 
