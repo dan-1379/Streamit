@@ -1,0 +1,80 @@
+@import url("//fonts.googleapis.com/css?family=Lobster|Cabin:400,700");
+
+body {
+  font-family: "Inter Variable", "Inter", system-ui, sans-serif;
+}
+
+/* 
+  image from https://www.themoviedb.org/tv/66732-stranger-things/images/backdrops
+  learned css gradient from https://stackoverflow.com/questions/2504071/how-do-i-combine-a-background-image-and-css3-gradient-on-the-same-element
+*/
+.hero-section {
+  background: 
+    /* Dark gradient vignette on the left to ensure high contrast for text */
+    linear-gradient(to right, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0) 100%),
+    /* Bottom fade to blend seamlessly into a black page background */
+    linear-gradient(to top, #000 0%, transparent 20%),
+    /* Hero Image */
+    url('https://image.tmdb.org/t/p/original/56v2KjBlU4XaOv9rVYEQypROD7P.jpg') center/cover no-repeat;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 4em;
+  justify-content: center;
+  justify-items: center;
+}
+/* TEMPORARY IMAGE FOR TESTING */
+.bg-custom-image {
+  background-image: url('https://i.redd.it/zjgs096khv591.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.netflix-card {
+  width: 200px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Hover state */
+.netflix-card:hover {
+  transform: scale(1.1);
+  z-index: 10;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+.netflix-card img {
+  display: block;
+  object-fit: cover;
+}
+
+.cast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 4em;
+  justify-content: center;
+  justify-items: center;
+}
+
+.episode-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 2.5rem 1.5rem;
+  align-items: start;
+}
+
+.episode-grid {
+  width: 100%;
+}
+
+.cast-card, .episode-card {
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.cast-card:hover, .episode-card:hover {
+  scale: 1.01;
+}
