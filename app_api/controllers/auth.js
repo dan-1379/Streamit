@@ -30,6 +30,7 @@ const userReadOne = function(req, res) {
     if (req.params && req.params.userid) {
         User
             .findById(req.params.userid)
+            .select("-password")
             .then(user => {
                 if (!user) {
                     return res

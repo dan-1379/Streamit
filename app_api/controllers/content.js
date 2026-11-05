@@ -58,6 +58,12 @@ const contentReadAll = function(req, res) {
     Content
     .find()
     .then(content => {
+        if (content.length === 0) {
+            return res
+                .status(404)
+                .json({ message: "No content found" })
+        }
+
         res
             .status(200)
             .json(content)

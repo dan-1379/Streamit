@@ -1,4 +1,4 @@
-const request = require('request');
+const axios = require('axios');
 
 const apiOptions = {
     server : 'http://localhost:3000'
@@ -27,26 +27,23 @@ const _renderHomepage = function(req, res, content) {
   }); 
 }
 
-const home = function(req, res){ 
-  const path = "/api/content";
+const home = async function(req, res) { 
+  let content = [];
+  const url = apiOptions.server + "/api/content";
 
-  const requestOptions = {
-    url: apiOptions.server + path,
-    method: "GET",
-    json: {}
-  };
+  try {
+    const response = await axios.get(url);
 
-  request(requestOptions, (err, response, body) => {
-    let content = [];
-
-    if (!err && response.statusCode === 200 && Array.isArray(body)) {
-      content = body;
+    if (response.status === 200 && Array.isArray(response.data)) {
+      content = response.data;
     } else {
-      console.log('API error or non-array body:', body);
+      console.log('API error or non-array body:', response.data);
     }
+  } catch (err) {
+      console.log('Content request failed', err.message);
+  }
 
-    _renderHomepage(req, res, content);
-  });
+  _renderHomepage(req, res, content);
 };
 
 /*
@@ -60,32 +57,20 @@ const _renderContentPage = function(req, res, item) {
   }); 
 }
 
-const content = function(req, res){ 
-  const path = "/api/content/" + req.params.contentid;
+const content = async function(req, res){ 
+  const url = apiOptions.server + "/api/content/" + req.params.contentid;
 
-  const requestOptions = {
-    url: apiOptions.server + path,
-    method: "GET",
-    json: {}
-  };
+  try {
+    const response = await axios.get(url);
+    _renderContentPage(req, res, response.data);
+  } catch (err) {
+    const status = err.response ? error.response.status : 500;
 
-  request(requestOptions, (err, response, body) => {
-    if(err) {
-      return res.status(500).render("error", {
-        message: 'Unable to connect to API server',
-        error: err
-      });
-    }
-
-    if (response.statusCode === 200) {
-      _renderContentPage(req, res, body);
-    } else {
-      res.status(response.statusCode).render("error",  {
-        message: 'Content not found',
-        error: body
-      })
-    }
-  });
+     res.status(status).render("error",  {
+        message: status === 404 ? "Content not found" : "Unable to connect to API server",
+        error: err.response ? err.response.data : { message: err.message }
+     })
+  }
 };
 
 module.exports = { 

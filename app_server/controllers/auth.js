@@ -1,4 +1,4 @@
-const request = require('request');
+const axios = require("axios");
 
 const apiOptions = {
     server : 'http://localhost:3000'
@@ -12,38 +12,34 @@ if (process.env.NODE_ENV === 'production') {
     POST SIGN UP
 */
 
-const register = function(req, res) {
-    const path = "/api/users/";
+const register = async function(req, res) {
+    const url = apiOptions.server + "/api/users/";
 
-    const requestOptions = {
-        url: apiOptions.server + path,
-        method: "POST",
-        json: {
-            name: req.body.firstname + " " + req.body.lastname,
-            email: req.body.email,
-            password: req.body.password
-        }
+    const postData = {
+        name: req.body.firstname + " " + req.body.lastname,
+        email: req.body.email,
+        password: req.body.password
     };
 
-    request(requestOptions, (err, response, body) => {
-        if(err) {
-            return res.status(500).render("error", {
-                message: 'Unable to connect to API server',
-                error: err
-            });
-        }
+    try {
+        const response = await axios.post(url, postData);
 
-        if (response.statusCode === 201) {
+        if (response.status === 201) {
             res.redirect("/signin");
         } else {
-            console.log('Register failed:', response.statusCode, JSON.stringify(body, null, 2));
-
-            res.status(response.statusCode).render("signup",  {
-                message: 'Sign up - Streamit',
-                error: body.message
+            res.status(response.status).render("signup", {
+                title: "Sign up - Streamit",
+                error: "Something went wrong, please try again"
             })
         }
-    });
+    } catch (err) {
+        const status = err.response ? error.response.status : 500;
+
+        res.status(status).render("signup", {
+            title: "Sign up - Streamit",
+            error: "Unable to connect to the server"
+        })
+    }
 }
 
 const signup = function(req, res){ 
@@ -54,36 +50,33 @@ const signup = function(req, res){
     POST SIGN IN
 */
 
-const login = function(req, res) {
-    const path = "/api/login/";
+const login = async function(req, res) {
+    const url = apiOptions.server + "/api/login/";
 
-    const requestOptions = {
-        url: apiOptions.server + path,
-        method: "POST",
-        json: {
-            name: req.body.name,
-            email: req.body.email,
-            password: req.body.password
-        }
+    const postData = {
+        email: req.body.email,
+        password: req.body.password
     };
+    
+    try {
+        const response = await axios.post(url, postData);
 
-    request(requestOptions, (err, response, body) => {
-        if(err) {
-            return res.status(500).render("error", {
-                message: 'Unable to connect to API server',
-                error: err
-            });
-        }
-
-        if (response.statusCode === 200) {
+        if (response.status === 200) {
             res.redirect("/home");
         } else {
             res.status(response.statusCode).render("signin",  {
                 message: 'Sign in - Streamit',
-                error: body.message
+                error: "Something went wrong, please try again"
             })
         }
-    });
+    } catch (err) {
+       const status = err.response ? error.response.status : 500;
+
+        res.status(status).render("signup", {
+            title: "Sign up - Streamit",
+            error: "Unable to connect to the server"
+        })
+    }
 }
 
 
