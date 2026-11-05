@@ -2,17 +2,8 @@
 
 <div class="content-grid">
   @for (item of contentItems; track item._id) {
-    <a class="content-card d-block text-decoration-none text-white" href="/title/{{ item._id }}">
-      <img class="img-fluid rounded" [src]="'http://localhost:3000' + item.image" [alt]="item.title">
-      <h3 class="h6 mt-2 mb-1">{{ item.title }}</h3>
-      <p class="small text-secondary mb-1">{{ item.year }} · {{ item.seasons }} · {{ item.rating }}</p>
-      <p class="small mb-1">{{ item.description }}</p>
-      <p class="small text-secondary">
-        Starring:
-        @for (member of item.cast; track member.name) {
-          <span>{{ member.name }} </span>
-        }
-      </p>
+    <a href="/title/{{ item._id }}" class="netflix-card d-block text-decoration-none">
+      <img [src]="'http://localhost:3000' + item.image" [alt]="item.title" class="rounded-1 w-100" loading="lazy">
     </a>
   }
 </div>
