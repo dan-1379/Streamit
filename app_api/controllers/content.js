@@ -22,9 +22,17 @@ const contentCreateOne = function (req, res) {
         .json(content);
     })
     .catch(err => {
+        if (err.code === 11000) {
+            return res.status(409).json({ message: "Content with that id already exists" });
+        }
+
+        if (err.name === "ValidationError") {
+            return res.status(400).json({ message: "Missing or invalid content fields" });
+        }
+
         res
-        .status(400)
-        .json({ message: "Error creating content", error: err });
+        .status(500)
+        .json({ message: "Error creating content" });
     });
 };
 
@@ -71,7 +79,7 @@ const contentReadAll = function(req, res) {
     .catch(err => {
         res
             .status(500)
-            .json({ message: "Error retrieving content", error: err })
+            .json({ message: "Error retrieving content" })
     });
 };
 

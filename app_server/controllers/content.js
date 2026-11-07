@@ -64,11 +64,12 @@ const content = async function(req, res){
     const response = await axios.get(url);
     _renderContentPage(req, res, response.data);
   } catch (err) {
-    const status = err.response ? error.response.status : 500;
+    const status = err.response ? err.response.status : 500;
 
      res.status(status).render("error",  {
+        title: "Error - Streamit",
+        status: status,
         message: status === 404 ? "Content not found" : "Unable to connect to API server",
-        error: err.response ? err.response.data : { message: err.message }
      })
   }
 };

@@ -8,7 +8,7 @@ block content
             a(href="/") 
                 img(src="/images/logo/streamit_logo_full.png", alt="Streamit logo" width="200")
         
-        .card.auth-card.w-50.mx-auto
+        .card.auth-card.mx-auto(style="width: min(90%, 480px);")
             .card-body.p-4
                 h1.h3.fw-light.mb-1 Sign up
                 p.text-secondary.small.mb-4 Create an account to start watching.
@@ -18,30 +18,31 @@ block content
                         i.bi.bi-exclamation-triangle-fill.flex-shrink-0
                         span= error
 
-                form(method="post" action="/signup")
+                form(method="post" action="/signup" novalidate)
                     .mb-3
                         label.form-label.small(for="firstname") First name
                         .input-group
                             span.input-group-text.border-0: i.bi.bi-person
-                            input#firstname.form-control(type="text" name="firstname" placeholder="First name" required)
+                            //- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/pattern
+                            input#firstname.form-control(type="text" name="firstname" placeholder="First name" value=(values && values.firstname) maxlength="50" pattern="[\\p{L}'\\- ]+" required autocomplete="given-name")
                     
                     .mb-3
                         label.form-label.small(for="lastname") Last name
                         .input-group
                             span.input-group-text.border-0: i.bi.bi-person
-                            input#lastname.form-control(type="text" name="lastname" placeholder="Last name" required)
+                            input#lastname.form-control(type="text" name="lastname" placeholder="Last name" value=(values && values.lastname) maxlength="50" pattern="[\\p{L}'\\- ]+" required autocomplete="family-name")
 
                     .mb-3
                         label.form-label.small(for="email") Email address
                         .input-group
                             span.input-group-text.border-0: i.bi.bi-envelope
-                            input#email.form-control(type="email" name="email" placeholder="youremail@email.com" required)
+                            input#email.form-control(type="email" name="email" placeholder="youremail@email.com" value=(values && values.email) required autocomplete="email")
                     
                     .mb-3
                         label.form-label.small(for="password") Password
                         .input-group
                             span.input-group-text: i.bi.bi-lock
-                            input#password.form-control(type="password" name="password" placeholder="********" required)
+                            input#password.form-control(type="password" name="password" placeholder="********" minlength="8" maxlength="50" required autocomplete="new-password")
                     
                     button.btn.btn-danger.w-100(type="submit") Sign up
                 

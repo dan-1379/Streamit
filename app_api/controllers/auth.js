@@ -10,19 +10,24 @@ const userCreateOne = function(req, res) {
     .then(user => {
         res
         .status(201)
-        .json(user);
+        .json({ _id: user._id, name: user.name, email: user.email });
     })
     .catch(err => {
         // MongoDB Duplicate Key Check
         if (err.code === 11000) {
             return res
             .status(409) // Request cannot be processed as it clashes with the current state of the target resource
-            .json({ message: "An account with that email already exists", error: err });
+            .json({ message: "An account with that email already exists" });
+        }
+
+        if (err.name === "ValidationError") {
+            const firstError = Object.values(err.errors)[0].message;
+            return res.status(400).json({ message: firstError });
         }
 
         res
-        .status(400)
-        .json({ message: "Error creating user", error: err });
+            .status(500)
+            .json({ message: "Error creating user" });
     });
 };
 
@@ -32,7 +37,7 @@ const userReadOne = function(req, res) {
             .findById(req.params.userid)
             .select("-password")
             .then(user => {
-                if (!user) {
+                if (!mongoose.Types.ObjectId.isValid(req.params.userid)) {
                     return res
                         .status(404)
                         .json({ message: "userid not found" });
@@ -44,7 +49,7 @@ const userReadOne = function(req, res) {
             .catch(err => {
                 res
                 .status(500)
-                .json({ message: "Error retrieving user", error: err });
+                .json({ message: "Error retrieving user" });
             });
     } else {
         res
@@ -82,7 +87,7 @@ const userLogin = function(req, res) {
         .catch(err => {
                 res
                 .status(500)
-                .json({ message: "Error logging in", error: err });
+                .json({ message: "Error logging in" });
         })
     } else {
         res
