@@ -30,9 +30,7 @@ const contentCreateOne = function (req, res) {
             return res.status(400).json({ message: "Missing or invalid content fields" });
         }
 
-        res
-        .status(500)
-        .json({ message: "Error creating content" });
+        res.status(500).json({ message: "Error creating content" });
     });
 };
 
@@ -53,7 +51,7 @@ const contentReadOne = function (req, res) {
             .catch(err => {
                 res
                 .status(500)
-                .json({ message: "Error retrieving content", error: err });
+                .json({ message: "Error retrieving content" });
             });
     } else {
         res
@@ -66,15 +64,7 @@ const contentReadAll = function(req, res) {
     Content
     .find()
     .then(content => {
-        if (content.length === 0) {
-            return res
-                .status(404)
-                .json({ message: "No content found" })
-        }
-
-        res
-            .status(200)
-            .json(content)
+        res.status(200).json(content)
     })
     .catch(err => {
         res

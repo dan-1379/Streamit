@@ -32,7 +32,7 @@ const home = async function(req, res) {
   const url = apiOptions.server + "/api/content";
 
   try {
-    const response = await axios.get(url);
+    const response = await axios.get(url, { timeout: 5000 });
 
     if (response.status === 200 && Array.isArray(response.data)) {
       content = response.data;
@@ -61,7 +61,7 @@ const content = async function(req, res){
   const url = apiOptions.server + "/api/content/" + req.params.contentid;
 
   try {
-    const response = await axios.get(url);
+    const response = await axios.get(url, { timeout: 5000 });
     _renderContentPage(req, res, response.data);
   } catch (err) {
     const status = err.response ? err.response.status : 500;

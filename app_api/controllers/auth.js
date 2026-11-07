@@ -32,30 +32,26 @@ const userCreateOne = function(req, res) {
 };
 
 const userReadOne = function(req, res) {
-    if (req.params && req.params.userid) {
-        User
-            .findById(req.params.userid)
-            .select("-password")
-            .then(user => {
-                if (!mongoose.Types.ObjectId.isValid(req.params.userid)) {
-                    return res
-                        .status(404)
-                        .json({ message: "userid not found" });
-                }
-                res
-                .status(200)
-                .json(user);
-            })
-            .catch(err => {
-                res
-                .status(500)
-                .json({ message: "Error retrieving user" });
-            });
-    } else {
-        res
-        .status(400)
-        .json({ message: "No userid in request" });
+    if (!req.params || !req.params.userid) {
+        return res.status(400).json({ message: "No userid in request" });
     }
+    if (!mongoose.Types.ObjectId.isValid(req.params.userid)) {
+        return res.status(404).json({ message: "userid not found" });
+    }
+
+    User
+        .findById(req.params.userid)
+        .select("-password")
+        .then(user => {
+            if (!user) {
+                return res.status(404).json({ message: "userid not found" });
+            }
+            
+            res.status(200).json(user);
+        })
+        .catch(err => {
+            res.status(500).json({ message: "Error retrieving user" });
+        });
 }
 
 const userUpdateOne = function(req, res) {
@@ -73,7 +69,7 @@ const userDeleteOne = function(req, res) {
 const userLogin = function(req, res) {
     if (req.body && req.body.email && req.body.password) {
         User
-        .findOne({ email: req.body.email })
+        .findOne({ email: req.body.email.toLowerCase().trim() })
         .then(user => {
             if (!user || user.password !== req.body.password) {
                 return res
