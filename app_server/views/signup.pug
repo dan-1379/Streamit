@@ -49,3 +49,10 @@ block content
                 .d-flex.flex-column.flex-sm-row.align-items-left.gap-1.mt-4.small
                     span Already have an account?
                     a.text-decoration-underline.text-black(href="/signin") Sign in
+    
+    script.
+        document.querySelector('form').addEventListener('submit', function () {
+            const btn = this.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Creating account...';
+        });

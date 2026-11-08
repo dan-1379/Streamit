@@ -62,10 +62,11 @@ const contentReadOne = function (req, res) {
 
 const contentReadAll = function(req, res) {
     Content
-    .find()
-    .then(content => {
-        res.status(200).json(content)
-    })
+        .find()
+        .select("title year seasons rating description image coverImage type")
+        .then(content => {
+            res.status(200).json(content)
+        })
     .catch(err => {
         res
             .status(500)

@@ -13,7 +13,10 @@ if (process.env.NODE_ENV === 'production') {
 */
 
 const _renderHomepage = function(req, res, content) {
-  const hero = content.find(item => item._id === 'stranger-things') || content[0];
+  const HERO_OPTIONS = ["stranger-things", "heroes", "the-gentlemen", "dark", "smallville"];
+  const heroId = HERO_OPTIONS[Math.floor(Math.random() * HERO_OPTIONS.length)];
+
+  const hero = content.find(item => item._id === heroId) || content[0];
   const savedList = content.slice(0, 5);
   const savedSeries = content.filter(item => item.type === 'series');
   const savedFilms = content.filter(item => item.type === 'film');
