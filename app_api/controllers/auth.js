@@ -67,7 +67,11 @@ const userDeleteOne = function(req, res) {
 }
 
 const userLogin = function(req, res) {
-    if (req.body && req.body.email && req.body.password) {
+    if (
+        req.body && 
+        req.body.email && typeof req.body.email === "string" && 
+        req.body.password && typeof req.body.password === "string"
+    ) {
         User
         .findOne({ email: req.body.email.toLowerCase().trim() })
         .then(user => {

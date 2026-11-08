@@ -45,7 +45,7 @@ export class ContentList {
       "rating": "15",
       "description": "Welcome to Hawkins, Indiana, a small town with big secrets, strange sightings, government cover-ups... and a dark force that turns everything upside down.",
       "image": "/images/stranger-things/st.jpg",
-      "coverImage": "/images/stranger-things/st-cover.jpg",
+      "coverImage": "/images/stranger-things/st-cover.webp",
       "type": "series",
       "episodes": [
         {
@@ -162,6 +162,7 @@ export class ContentList {
       "rating": "15",
       "description": "Ordinary people discover extraordinary abilities.",
       "image": "/images/heroes/heroes.jpg",
+      "coverImage": "/images/heroes/heroes-cover.webp",
       "type": "series",
       "episodes": [
         {
@@ -245,6 +246,7 @@ export class ContentList {
       "rating": "18",
       "description": "An aristocrat inherits the family estate, only to discover it's home to a huge weed empire.",
       "image": "/images/the-gentlemen/the-gentlemen.jpg",
+      "coverImage": "/images/the-gentlemen/the-gentlemen-cover.webp",
       "type": "series",
       "episodes": [
         {
@@ -328,6 +330,7 @@ export class ContentList {
       "rating": "15",
       "description": "A missing child sets four families on a frantic hunt for answers across generations.",
       "image": "/images/dark/dark.jpg",
+      "coverImage": "/images/dark/dark-cover.webp",
       "type": "series",
       "episodes": [
         {
@@ -423,6 +426,7 @@ export class ContentList {
       "rating": "12",
       "description": "A young Clark Kent struggles to find his place in the world as he learns to harness his powers.",
       "image": "/images/smallville/smallville.jpg",
+      "coverImage": "/images/smallville/smallville-cover.webp",
       "type": "series",
       "episodes": [
         {
@@ -598,5 +602,17 @@ export class ContentList {
       ]
     }
   ];
+
+  serverUrl = 'http://localhost:3000';
+
+  heroOptions = this.contentItems.filter(item => item.coverImage);
+
+  hero = this.heroOptions.length
+    ? this.heroOptions[Math.floor(Math.random() * this.heroOptions.length)]
+    : this.contentItems[0];
+  
+  saved = this.contentItems.slice(0, 5);
+  series = this.contentItems.filter(item => item.type === 'series');
+  films = this.contentItems.filter(item => item.type === 'film');
 }
  

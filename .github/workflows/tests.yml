@@ -1,0 +1,58 @@
+# ------------------------------------------------------------------
+# Continuous Integration: automated API tests
+#
+# This GitHub Actions workflow runs the API test suite (test/api.test.js)
+# on GitHub's servers every time code is pushed to main or a pull request
+# is opened against main. If any test fails, the commit is marked with a
+# red cross on GitHub, so broken code is caught before it is deployed.
+#
+# Reference: https://docs.github.com/en/actions
+# ------------------------------------------------------------------
+
+# Name shown in the Actions tab on GitHub
+name: API tests
+
+# Triggers: when this workflow runs
+on:
+  push:
+    branches: [main]          # every push to the main branch
+  pull_request:
+    branches: [main]          # every pull request into main, before it is merged
+
+jobs:
+  # A job is a set of steps that run together on the same machine
+  test:
+    # GitHub starts a fresh Linux virtual machine for every run,
+    # so the tests run in a clean environment rather than on my laptop.
+    # This catches problems such as packages missing from package.json
+    # or files that were never committed.
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Download the repository's code onto the virtual machine
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      # 2. Install Node.js. Version 24 is a long-term support (LTS) release,
+      #    which suits the project's dependencies, including Angular 22.
+      #    "cache: npm" saves downloaded packages between runs to speed them up.
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      # 3. Install dependencies.
+      #    "npm ci" (clean install) installs the exact versions recorded in
+      #    package-lock.json, rather than "npm install", which can update them.
+      #    This makes every run use identical dependencies.
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Run the test suite (the "test" script in package.json: node --test).
+      #    No database credentials are needed here: the tests start their own
+      #    temporary in-memory MongoDB (mongodb-memory-server), so the real
+      #    MongoDB Atlas data is never touched and no secrets are stored on GitHub.
+      #    If any test fails, this step fails and the whole run is marked as failed.
+      - name: Run the API tests
+        run: npm test

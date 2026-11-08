@@ -1,9 +1,80 @@
-<h2 class="h4 mb-3">Browse</h2>
+<!-- https://getbootstrap.com/docs/5.3/components/navbar/#how-it-works-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-black">
+  <div class="container-fluid"><a href="/home"><img src="/images/logo/streamit_logo_full.png" alt="Streamit logo" width="150"/></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto fs-5">
+        <li class="nav-item text-light"><a class="nav-link active" aria-current="page" href="/home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Series</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Films</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">My List</a></li>
+      </ul>
+      <div class="d-flex gap-2 align-items-center"><i class="bi bi-search"></i><a class="btn btn-danger btn-sm text-uppercase" href="/">Log out</a></div>
+    </div>
+  </div>
+</nav>
 
-<div class="content-grid">
-  @for (item of contentItems; track item._id) {
-    <a href="/title/{{ item._id }}" class="netflix-card d-block text-decoration-none">
-      <img [src]="'http://localhost:3000' + item.image" [alt]="item.title" class="rounded-1 w-100" loading="lazy">
-    </a>
-  }
+<header class="hero-section position-relative d-flex align-items-center text-white p-4 p-md-5"
+        [style.background]="`linear-gradient(to right, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0) 100%), linear-gradient(to top, #000 0%, transparent 20%), url('${serverUrl}${hero.coverImage || hero.image}') center 25%/cover no-repeat`">
+  <div class="container-fluid py-5">
+    <div class="position-absolute top-0 py-2">
+      <img [src]="serverUrl + '/images/logo/streamit_logo_s.png'" alt="Logo" width="25" height="40">
+    </div>
+
+    <h1 class="fs-3 fw-bold mb-2">{{ hero.title }}</h1>
+
+    <div class="d-flex align-items-center gap-2 mb-3 text-light small">
+      <span>{{ hero.year }}</span>
+      <span>{{ hero.seasons }}</span>
+      <span class="badge bg-secondary border border-light">{{ hero.rating }}</span>
+    </div>
+
+    <p class="lead fs-6 text-light mb-4">{{ hero.description }}</p>
+
+    <div class="d-flex gap-2">
+      <a class="btn btn-light fw-semibold d-flex align-items-center gap-2 px-4" [href]="serverUrl + '/title/' + hero._id">
+        <i class="bi bi-play-fill"></i>
+        Play
+      </a>
+      <a class="btn btn-outline-light fw-semibold px-4" [href]="serverUrl + '/title/' + hero._id">
+        More Info
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="p-5">
+  <h3>Your List</h3>
+
+  <div class="content-grid">
+    @for (item of saved; track item._id) {
+      <a class="netflix-card d-block text-decoration-none" [href]="serverUrl + '/title/' + item._id">
+        <img class="rounded-1 w-100" [src]="serverUrl + item.image" [alt]="item.title" loading="lazy">
+      </a>
+    }
+  </div>
+</div>
+
+<div class="p-5">
+  <h3>Series</h3>
+
+  <div class="content-grid">
+    @for (item of series; track item._id) {
+      <a class="netflix-card d-block text-decoration-none" [href]="serverUrl + '/title/' + item._id">
+        <img class="rounded-1 w-100" [src]="serverUrl + item.image" [alt]="item.title" loading="lazy">
+      </a>
+    }
+  </div>
+</div>
+
+<div class="p-5">
+  <h3>Films</h3>
+
+  <div class="content-grid align-center">
+    @for (item of films; track item._id) {
+      <a class="netflix-card d-block text-decoration-none" [href]="serverUrl + '/title/' + item._id">
+        <img class="rounded-1 w-100" [src]="serverUrl + item.image" [alt]="item.title" loading="lazy">
+      </a>
+    }
+  </div>
 </div>
