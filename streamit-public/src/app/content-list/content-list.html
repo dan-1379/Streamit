@@ -1,4 +1,7 @@
 <!-- https://getbootstrap.com/docs/5.3/components/navbar/#how-it-works-->
+<!--https://angular.dev/guide/templates/defer-->
+<!--https://getbootstrap.com/docs/5.3/components/placeholders-->
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-black">
   <div class="container-fluid"><a href="/home"><img src="/images/logo/streamit_logo_full.png" alt="Streamit logo" width="150"/></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -9,72 +12,118 @@
         <li class="nav-item"><a class="nav-link" href="#">Films</a></li>
         <li class="nav-item"><a class="nav-link" href="#">My List</a></li>
       </ul>
-      <div class="d-flex gap-2 align-items-center"><i class="bi bi-search"></i><a class="btn btn-danger btn-sm text-uppercase" href="/">Log out</a></div>
+      <div class="d-flex gap-2 align-items-center">
+        <i class="bi bi-search"></i>
+        <a class="btn btn-danger btn-sm text-uppercase" href="/">Log out</a></div>
     </div>
   </div>
 </nav>
 
-<header class="hero-section position-relative d-flex align-items-center text-white p-4 p-md-5"
-        [style.background]="`linear-gradient(to right, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0) 100%), linear-gradient(to top, #000 0%, transparent 20%), url('${serverUrl}${hero.coverImage || hero.image}') center 25%/cover no-repeat`">
-  <div class="container-fluid py-5">
-    <div class="position-absolute top-0 py-2">
-      <img [src]="serverUrl + '/images/logo/streamit_logo_s.png'" alt="Logo" width="25" height="40">
+@if (!loading) {
+  <header class="hero-section position-relative d-flex align-items-center text-white p-4 p-md-5"
+          [style.background]="`linear-gradient(to right, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0) 100%), linear-gradient(to top, #000 0%, transparent 20%), url('${serverUrl}${hero.coverImage || hero.image}') center 25%/cover no-repeat`">
+    <div class="container-fluid py-5">
+      <div class="position-absolute top-0 py-2">
+        <img [src]="serverUrl + '/images/logo/streamit_logo_s.png'" alt="Logo" width="25" height="40">
+      </div>
+
+      <h1 class="fs-3 fw-bold mb-2">{{ hero.title }}</h1>
+
+      <div class="d-flex align-items-center gap-2 mb-3 text-light small">
+        <span>{{ hero.year }}</span>
+        <span>{{ hero.seasons }}</span>
+        <span class="badge bg-secondary border border-light">{{ hero.rating }}</span>
+      </div>
+
+      <p class="lead fs-6 text-light mb-4">{{ hero.description }}</p>
+
+      <div class="d-flex gap-2">
+        <a class="btn btn-light fw-semibold d-flex align-items-center gap-2 px-4" [href]="serverUrl + '/title/' + hero._id">
+          <i class="bi bi-play-fill"></i>
+          Play
+        </a>
+        <a class="btn btn-outline-light fw-semibold px-4" [href]="serverUrl + '/title/' + hero._id">
+          More Info
+        </a>
+      </div>
     </div>
+  </header>
 
-    <h1 class="fs-3 fw-bold mb-2">{{ hero.title }}</h1>
+  <div class="p-5">
+    <h3>Your List</h3>
 
-    <div class="d-flex align-items-center gap-2 mb-3 text-light small">
-      <span>{{ hero.year }}</span>
-      <span>{{ hero.seasons }}</span>
-      <span class="badge bg-secondary border border-light">{{ hero.rating }}</span>
-    </div>
-
-    <p class="lead fs-6 text-light mb-4">{{ hero.description }}</p>
-
-    <div class="d-flex gap-2">
-      <a class="btn btn-light fw-semibold d-flex align-items-center gap-2 px-4" [href]="serverUrl + '/title/' + hero._id">
-        <i class="bi bi-play-fill"></i>
-        Play
-      </a>
-      <a class="btn btn-outline-light fw-semibold px-4" [href]="serverUrl + '/title/' + hero._id">
-        More Info
-      </a>
+    <div class="content-grid">
+      @for (item of saved; track item._id) {
+        <a class="netflix-card d-block text-decoration-none" [href]="serverUrl + '/title/' + item._id">
+          <img class="rounded-1 w-100" [src]="serverUrl + item.image" [alt]="item.title" loading="lazy">
+        </a>
+      }
     </div>
   </div>
-</header>
 
-<div class="p-5">
-  <h3>Your List</h3>
+  <div class="p-5">
+    <h3>Series</h3>
 
-  <div class="content-grid">
-    @for (item of saved; track item._id) {
-      <a class="netflix-card d-block text-decoration-none" [href]="serverUrl + '/title/' + item._id">
-        <img class="rounded-1 w-100" [src]="serverUrl + item.image" [alt]="item.title" loading="lazy">
-      </a>
-    }
+    <div class="content-grid">
+      @for (item of series; track item._id) {
+        <a class="netflix-card d-block text-decoration-none" [href]="serverUrl + '/title/' + item._id">
+          <img class="rounded-1 w-100" [src]="serverUrl + item.image" [alt]="item.title" loading="lazy">
+        </a>
+      }
+    </div>
   </div>
-</div>
 
-<div class="p-5">
-  <h3>Series</h3>
+  <div class="p-5">
+    <h3>Films</h3>
 
-  <div class="content-grid">
-    @for (item of series; track item._id) {
-      <a class="netflix-card d-block text-decoration-none" [href]="serverUrl + '/title/' + item._id">
-        <img class="rounded-1 w-100" [src]="serverUrl + item.image" [alt]="item.title" loading="lazy">
-      </a>
-    }
+    <div class="content-grid align-center">
+      @for (item of films; track item._id) {
+        <a class="netflix-card d-block text-decoration-none" [href]="serverUrl + '/title/' + item._id">
+          <img class="rounded-1 w-100" [src]="serverUrl + item.image" [alt]="item.title" loading="lazy">
+        </a>
+      }
+    </div>
   </div>
-</div>
+} @else {
+  <header class="hero-section position-relative d-flex align-items-center text-white p-4 p-md-5 placeholder-glow"
+        style="background: #111;" aria-hidden="true">
+    <div class="container-fluid py-5">
+      <div class="position-absolute top-0 py-2">
+      </div>
 
-<div class="p-5">
-  <h3>Films</h3>
+      <h1 class="fs-3 fw-bold mb-2">
+        <span class="placeholder bg-secondary col-6 col-md-3"></span>
+      </h1>
 
-  <div class="content-grid align-center">
-    @for (item of films; track item._id) {
-      <a class="netflix-card d-block text-decoration-none" [href]="serverUrl + '/title/' + item._id">
-        <img class="rounded-1 w-100" [src]="serverUrl + item.image" [alt]="item.title" loading="lazy">
-      </a>
-    }
-  </div>
-</div>
+      <div class="d-flex align-items-center gap-2 mb-3 text-light small">
+        <span class="placeholder bg-secondary" style="width: 40px;"></span>
+        <span class="placeholder bg-secondary" style="width: 70px;"></span>
+        <span class="placeholder bg-secondary" style="width: 28px;"></span>
+      </div>
+
+      <p class="lead fs-6 text-light mb-4">
+        <span class="placeholder bg-secondary col-12 col-md-6"></span>
+        <span class="placeholder bg-secondary col-9 col-md-4"></span>
+      </p>
+
+      <div class="d-flex gap-2">
+        <span class="btn btn-light disabled placeholder px-4" style="width: 100px;"></span>
+        <span class="btn btn-outline-light disabled placeholder px-4" style="width: 120px;"></span>
+      </div>
+    </div>
+  </header>
+  
+  @for (n of [1, 2, 3]; track n) {
+    <div class="p-5 placeholder-glow">
+      <h3>
+        <span class="placeholder bg-secondary col-4 col-md-1"></span>
+      </h3>
+
+      <div class="content-grid">
+        @for (item of saved; track item._id) {
+          <span class="netflix-card d-block text-decoration-none rounded-1 w-100" style="aspect-ratio: 2 / 1;"></span>
+        }
+      </div>
+    </div>
+  }
+}

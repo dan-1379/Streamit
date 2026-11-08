@@ -604,6 +604,7 @@ export class ContentList {
   ];
 
   serverUrl = 'http://localhost:3000';
+  loading = false;
 
   heroOptions = this.contentItems.filter(item => item.coverImage);
 
