@@ -15,6 +15,10 @@ export class ContentList implements OnInit {
   serverUrl = 'http://localhost:3000';
   loading = true;
 
+  error = false;
+  private retries = 0;
+  private maxRetries = 5;
+
   contentItems: Content[] = [];
   hero!: Content;
   saved: Content[] = [];
@@ -38,8 +42,17 @@ export class ContentList implements OnInit {
       this.loading = false;
       this.cdr.detectChanges();
     } catch(error) {
-      console.error('Error fetching content:', error);
-      this.loading = false;
+      this.retries++;
+
+      if (this.retries < this.maxRetries) {
+        console.warn(`Content not available, retry ${this.retries} of ${this.maxRetries}...`);
+        setTimeout(() => this.loadContent(), 2000);
+      } else {
+        console.error(`Giving up after ${this.maxRetries} attempts`);
+        this.error = true;
+        this.loading = false;
+        this.cdr.detectChanges();
+      }
     }
   }
 
