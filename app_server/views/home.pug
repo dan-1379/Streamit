@@ -2,14 +2,7 @@ extends layout
 
 block content
     include navbar
-
-    if hero
-        include cover-image
-        
-        include saved
-        include series
-        include films
-    else 
-        .p-5.text-center
-            h2 Nothing to watch right now
-            p.text-secondary We couldn't load the catalogue. Please try again shortly.
+    app-content-list Loading...
+    
+block scripts
+    script(type='module', src='/build/main-QHFSYAKT.js')

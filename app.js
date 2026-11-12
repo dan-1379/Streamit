@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 const os = require('os');
 const fs = require('fs');
+const cors = require('cors')
 
 const oneDriveEnv = path.join(
     os.homedir(),
@@ -33,7 +34,15 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'app_public')));
+
+app.use('/api', cors({
+  origin: ['http://localhost:4200', 'http://localhost:3000'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept']
+}));
 
 app.use('/', indexRouter);
 app.use('/api', apiRoutes);

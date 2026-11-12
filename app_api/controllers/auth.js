@@ -1,34 +1,40 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
-const userCreateOne = function(req, res) {
-    User.create({
+const bcrypt = require("bcryptjs");
+
+const userCreateOne = function (req, res) {
+    const user = new User({
         name: req.body.name,
         email: req.body.email,
         password: req.body.password
-    })
-    .then(user => {
-        res
-        .status(201)
-        .json({ _id: user._id, name: user.name, email: user.email });
-    })
-    .catch(err => {
-        // MongoDB Duplicate Key Check
-        if (err.code === 11000) {
-            return res
-            .status(409) // Request cannot be processed as it clashes with the current state of the target resource
-            .json({ message: "An account with that email already exists" });
-        }
-
-        if (err.name === "ValidationError") {
-            const firstError = Object.values(err.errors)[0].message;
-            return res.status(400).json({ message: firstError });
-        }
-
-        res
-            .status(500)
-            .json({ message: "Error creating user" });
     });
+
+    user.validate()
+        .then(() => bcrypt.hash(req.body.password, 10))
+        .then(hash => {
+            user.password = hash;
+            return user.save();
+        })
+        .then(saved => {
+            res
+                .status(201)
+                .json({ _id: saved._id, name: saved.name, email: saved.email });
+        })
+        .catch(err => {
+            if (err.code === 11000) {
+                return res
+                    .status(409)
+                    .json({ message: "An account with that email already exists" });
+            }
+            if (err.name === "ValidationError") {
+                const firstError = Object.values(err.errors)[0].message;
+                return res.status(400).json({ message: firstError });
+            }
+            res
+                .status(500)
+                .json({ message: "Error creating user" });
+        });
 };
 
 const userReadOne = function(req, res) {
@@ -66,35 +72,43 @@ const userDeleteOne = function(req, res) {
     .json({"status" : "success"});
 }
 
-const userLogin = function(req, res) {
+const userLogin = function (req, res) {
     if (
-        req.body && 
-        req.body.email && typeof req.body.email === "string" && 
+        req.body &&
+        req.body.email && typeof req.body.email === "string" &&
         req.body.password && typeof req.body.password === "string"
     ) {
         User
-        .findOne({ email: req.body.email.toLowerCase().trim() })
-        .then(user => {
-            if (!user || user.password !== req.body.password) {
-                return res
-                    .status(401)
-                    .json({ message: "Invalid email or password" })
-            }
-            res
-            .status(200)
-            .json({ _id: user._id, name: user.name, email: user.email })
-        })
-        .catch(err => {
+            .findOne({ email: req.body.email.toLowerCase().trim() })
+            .then(user => {
+                if (!user) {
+                    return res
+                        .status(401)
+                        .json({ message: "Invalid email or password" });
+                }
+                return bcrypt.compare(req.body.password, user.password)
+                    .then(match => {
+                        if (!match) {
+                            return res
+                                .status(401)
+                                .json({ message: "Invalid email or password" });
+                        }
+                        res
+                            .status(200)
+                            .json({ _id: user._id, name: user.name, email: user.email });
+                    });
+            })
+            .catch(err => {
                 res
-                .status(500)
-                .json({ message: "Error logging in" });
-        })
+                    .status(500)
+                    .json({ message: "Error logging in" });
+            });
     } else {
         res
-        .status(400)
-        .json({ message: "Email and password are required" });
+            .status(400)
+            .json({ message: "Email and password are required" });
     }
-}
+};
 
 module.exports = {
     userCreateOne,
