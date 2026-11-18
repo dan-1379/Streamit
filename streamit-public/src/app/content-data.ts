@@ -35,7 +35,7 @@ export class Content {
 })
 export class ContentData {
     private http = inject(HttpClient);
-    private apiBaseUrl = 'http://localhost:3000/api';
+    private apiBaseUrl = '/api';
     
     public async getContent(): Promise<Content[]> {
         const url = `${this.apiBaseUrl}/content`;

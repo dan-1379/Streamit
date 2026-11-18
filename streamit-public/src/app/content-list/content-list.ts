@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
+ import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { ContentData, Content } from '../content-data';
 
 @Component({
@@ -12,7 +12,7 @@ export class ContentList implements OnInit {
   private contentData = inject(ContentData);
   private cdr = inject(ChangeDetectorRef);
 
-  serverUrl = 'http://localhost:3000';
+  serverUrl = '';
   loading = true;
 
   error = false;
