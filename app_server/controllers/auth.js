@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { validateRegistration, validateLogin } = require('../utils/validation');
 
 const apiOptions = {
     server : 'http://localhost:3000'
@@ -15,12 +16,18 @@ if (process.env.NODE_ENV === 'production') {
 const register = async function(req, res) {
     const firstname = (req.body.firstname || "").trim();
     const lastname = (req.body.lastname || "").trim();
+    const email = (req.body.email || '').trim();
+    const password = req.body.password || "";
+    const values = { firstname, lastname, email };
 
-    if (!firstname || !lastname) {
-        return res.status(400).render("signup", {
-            title: "Sign up - Streamit",
-            error: "Please enter both your first and last name",
-            values: { firstname: req.body.firstname, lastname: req.body.lastname, email: req.body.email }
+    const errors = validateRegistration({ firstname, lastname, email, password });
+
+    if (errors.length > 0) {
+        return res.status(400).render('signup', {
+            title: 'Sign up - Streamit',
+            error: 'Please fix the following:',
+            errorsList: errors,
+            values
         });
     }
 
@@ -28,8 +35,8 @@ const register = async function(req, res) {
 
     const postData = {
         name: firstname + " " + lastname,
-        email: req.body.email,
-        password: req.body.password
+        email,
+        password
     };
 
     try {
@@ -45,7 +52,7 @@ const register = async function(req, res) {
         res.status(status).render("signup", {
             title: "Sign up - Streamit",
             error: message,
-            values: { firstname: req.body.firstname, lastname: req.body.lastname, email: req.body.email,  }
+            values
         })
     }
 }
@@ -59,12 +66,23 @@ const signup = function(req, res){
 */
 
 const login = async function(req, res) {
-    const url = apiOptions.server + "/api/login/";
+    const email = (req.body.email || "").trim();
+    const password = req.body.password || "";
+    const values = { email };
 
-    const postData = {
-        email: req.body.email,
-        password: req.body.password
-    };
+    const errors = validateLogin({ email, password });
+
+    if (errors.length > 0) {
+        return res.status(400).render("signin", {
+            title: "Sign in - Streamit",
+            error: "Please fix the following:",
+            errorsList: errors,
+            values
+        });
+    }
+
+    const url = apiOptions.server + "/api/login/";
+    const postData = { email, password };
     
     try {
         await axios.post(url, postData, { timeout: 5000 });
@@ -79,7 +97,7 @@ const login = async function(req, res) {
         res.status(status).render("signin", {
             title: "Sign in - Streamit",
             error: message,
-            values: { email: req.body.email }
+            values
         })
     }
 }

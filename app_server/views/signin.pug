@@ -1,65 +1,83 @@
 extends layout 
 
 block content
-    section.position-relative.d-flex.flex-column.min-vh-100.bg-custom-image
+    section.auth-page.position-relative.d-flex.flex-column.min-vh-100.bg-custom-image
         .wall(aria-hidden="true")
 
-        header.d-flex.justify-content-center.align-items-center.p-5
-            a(href="/") 
-                img(src="/images/logo/streamit_logo_full.png", alt="Streamit logo" width="200")
-        
-        .card.auth-card.mx-auto(style="width: min(90%, 480px);")
-            .card-body.p-4
-                h1.h3.fw-light.mb-1 Sign in
-                p.text-secondary.small.mb-4 Welcome back. Sign in to keep watching.
+        .card.auth-card.mx-auto.my-auto(style="width: min(90%, 550px);")
+            .card-body.p-4.p-sm-5
+                .d-flex.justify-content-center.mb-4
+                    a(href="/")
+                        img(src="/images/logo/streamit_logo_full.png", alt="Streamit" width="180")
+
+                .text-center.mb-4
+                    h3.fw-semibold.mb-1 Sign in
+                    p.text-secondary.small.mb-0 Welcome back. Sign in to keep watching.
 
                 if error
-                    .alert.alert-danger.d-flex.align-items-center.gap-2.small.py-2(role="alert")
-                        i.bi.bi-exclamation-triangle-fill.flex-shrink-0
-                        span= error
+                    .alert.alert-danger.small.py-2.px-3.d-flex.align-items-start.gap-2.border-0
+                        i.bi.bi-exclamation-triangle-fill.flex-shrink-0.mt-1
+                        div
+                            div= error
+                            if errorsList && errorsList.length
+                                ul.mb-0.mt-1.ps-3
+                                    each item in errorsList
+                                        li= item
 
                 form(method="post" action="/signin" novalidate)
                     .mb-3
-                        label.form-label.small(for="email") Email address
-                        .input-group
-                            span.input-group-text.border-0: i.bi.bi-envelope
-                            input#email.form-control(type="email" name="email" placeholder="youremail@email.com" value=(values && values.email) required autocomplete="email")
-                    
+                        label.form-label.small.text-secondary(for="email") Email address
+                        .input-group.auth-input
+                            span.input-group-text: i.bi.bi-envelope
+                            input#email.form-control(type="email" name="email" placeholder="you@email.com" value=(values && values.email) required autocomplete="email")
+
                     .mb-3
-                        label.form-label.small(for="password") Password
-                        .input-group
+                        label.form-label.small.text-secondary(for="password") Password
+                        .input-group.auth-input
                             span.input-group-text: i.bi.bi-lock
-                            input#password.form-control(type="password" name="password" placeholder="********" required autocomplete="current-password")
-                    
-                    .d-flex.flex-column.flex-sm-row.justify-content-between.align-items-start.small.mb-3
+                            input#password.form-control(type="password" name="password" placeholder="••••••••" required autocomplete="current-password")
+                            button.input-group-text.btn-toggle-pw(type="button" tabindex="-1" aria-label="Show password")
+                                i.bi.bi-eye
+
+                    .d-flex.justify-content-between.align-items-center.small.mb-4
                         .form-check
                             input#remember.form-check-input(type="checkbox" name="remember")
-                            label.form-check-label(for="remember") Remember me
-                        a.text-dark(href="/") Forgot password?
-                    
-                    button.btn.btn-danger.w-100(type="submit") Log in
-                
-                .d-flex.align-items-center.gap-2.my-3.text-secondary.small
-                    hr.flex-grow-1
-                    span Or continue with
-                    hr.flex-grow-1
-                
-                .d-flex.flex-column.flex-sm-row.gap-3
-                    a.btn.bg-secondary.p-2.text-white.btn-sm.w-100(href="#")
-                        i.bi.bi-google.me-1
-                        |  Google
+                            label.form-check-label.text-secondary(for="remember") Remember me
+                        a.auth-link(href="/") Forgot password?
 
-                    a.btn.bg-secondary.p-2.text-white.btn-sm.w-100(href="#")
-                        i.bi.bi-apple.me-1
-                        |  Apple
-                
-                .d-flex.flex-column.flex-sm-row.align-items-start.gap-1.mt-4.small
-                    span Don't have an account yet?
-                    a.text-decoration-underline.text-black(href="/signup") Sign up
-    
+                    button.btn.btn-danger.w-100.fw-semibold.py-2(type="submit") Log in
+
+                .d-flex.align-items-center.gap-2.my-4.text-secondary.small
+                    hr.flex-grow-1.m-0
+                    span.text-nowrap Or continue with
+                    hr.flex-grow-1.m-0
+
+                .d-flex.gap-3
+                    a.btn.btn-social.btn-google.w-100(href="#")
+                        i.bi.bi-google.me-2
+                        | Google
+                    a.btn.btn-social.btn-apple.w-100(href="#")
+                        i.bi.bi-apple.me-2
+                        | Apple
+
+                .text-center.small.mt-4.text-secondary
+                    | Don't have an account yet?
+                    a.auth-link.ms-1(href="/signup") Sign up
+
     script.
-        document.querySelector('form').addEventListener('submit', function () {
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function () {
             const btn = this.querySelector('button[type="submit"]');
             btn.disabled = true;
             btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Signing in...';
+        });
+
+        const toggle = document.querySelector('.btn-toggle-pw');
+        toggle.addEventListener('click', function () {
+            const pw = document.getElementById('password');
+            const icon = this.querySelector('i');
+            const show = pw.type === 'password';
+            pw.type = show ? 'text' : 'password';
+            icon.classList.toggle('bi-eye', !show);
+            icon.classList.toggle('bi-eye-slash', show);
         });
