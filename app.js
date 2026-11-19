@@ -6,7 +6,11 @@ var logger = require('morgan');
 
 const os = require('os');
 const fs = require('fs');
-const cors = require('cors')
+const cors = require('cors');
+
+const session = require('express-session');
+const passport = require('passport');
+const mongoose = require('mongoose');
 
 const oneDriveEnv = path.join(
     os.homedir(),
@@ -17,9 +21,10 @@ const oneDriveEnv = path.join(
 
 require('dotenv').config({
   path: fs.existsSync(oneDriveEnv) ? oneDriveEnv : path.join(__dirname, '.env')
-})
+});
 
 require('./app_api/models/db');
+const User = mongoose.model("User");
 
 const indexRouter = require('./app_server/routes/index');
 const apiRoutes = require('./app_api/routes/index');
@@ -37,6 +42,19 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'app_public')));
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use('/api', cors({
   origin: ['http://localhost:4200', 'http://localhost:3000'],

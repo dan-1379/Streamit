@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const passportLocalMongoose = require('passport-local-mongoose');
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -16,12 +17,16 @@ const userSchema = new mongoose.Schema({
         trim: true,
         lowercase: true,
         validate: [validator.isEmail, "Please enter a valid email address"]
-    },
-    password: {
-        type: String, 
-        required: [true, "Password is required"],
-        minlength: [8, "Password must be at least 8 characters"]
     }
 });
+
+userSchema.plugin(passportLocalMongoose, {
+    usernameField: 'email',
+    usernameLowerCase: true,
+    errorMessages: {
+        UserExistsError: 'An account with that email already exists'
+    }
+});
+
 
 mongoose.model('User', userSchema);

@@ -5,9 +5,18 @@ const ctrlOthers = require('../controllers/others');
 const ctrlAuth = require('../controllers/auth'); 
 const ctrlContent = require('../controllers/content'); 
 
+const ensureAuth = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        return next(); 
+    }
+
+    res.redirect('/signin');
+}
+
 router.get('/', ctrlOthers.landing);
-router.get('/home', ctrlContent.home);
-router.get('/title/:contentid', ctrlContent.content);
+router.get('/home', ensureAuthenticated, ctrlContent.home);
+router.get('/title/:contentid', ensureAuthenticated, ctrlContent.content);
+router.get('/logout', ctrlAuth.logout);
 
 router
     .route("/signup")

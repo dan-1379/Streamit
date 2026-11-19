@@ -73,6 +73,13 @@ Create a `.env` file in the project root:
 
 ```
 MONGODB_URI=<your MongoDB connection string>
+SESSION_SECRET=<your session secret>
+```
+
+To get a strong, random value, use the following:
+
+```
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 ```
 
 ### Running the app
