@@ -5,7 +5,7 @@ const ctrlOthers = require('../controllers/others');
 const ctrlAuth = require('../controllers/auth'); 
 const ctrlContent = require('../controllers/content'); 
 
-const ensureAuth = (req, res, next) => {
+const ensureAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
         return next(); 
     }

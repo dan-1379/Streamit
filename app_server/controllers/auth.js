@@ -55,7 +55,7 @@ const register = async function(req, res) {
     POST SIGN IN
 */
 
-const login = async function(req, res) {
+const login = async function(req, res, next) {
     const email = (req.body.email || "").trim();
     const password = req.body.password || "";
     const values = { email };

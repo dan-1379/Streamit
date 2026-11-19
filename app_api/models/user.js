@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
-const passportLocalMongoose = require('passport-local-mongoose');
+const passportLocalMongoose = require('passport-local-mongoose').default || require('passport-local-mongoose');
 
 const userSchema = new mongoose.Schema({
     name: {
