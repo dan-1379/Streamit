@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const ctrlUsers = require('../controllers/auth');
 const ctrlContent = require('../controllers/content');
 
 const ensureApiAuth = (req, res, next) => {

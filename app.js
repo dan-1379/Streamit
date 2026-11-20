@@ -12,11 +12,13 @@ const session = require('express-session');
 const passport = require('passport');
 const mongoose = require('mongoose');
 
+const https = require('https');
+
 const oneDriveEnv = path.join(
-    os.homedir(),
-    'OneDrive - Munster Technological University',
-    'Documents',
-    'atlas-credentials.env'
+  os.homedir(),
+  'OneDrive - Munster Technological University',
+  'Documents',
+  'atlas-credentials.env'
 );
 
 require('dotenv').config({
@@ -82,5 +84,20 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+var keyPath = path.join(__dirname, 'sslcert', 'key.pem');
+var certPath = path.join(__dirname, 'sslcert', 'cert.pem');
+
+if (fs.existsSync(keyPath) && fs.existsSync(certPath)) {
+  var credentials = {
+    key: fs.readFileSync(keyPath, 'utf8'),
+    cert: fs.readFileSync(certPath, 'utf8')
+  };
+  
+  https.createServer(credentials, app).listen(8443, function () {
+    console.log('HTTPS server running on https://localhost:8443'); 
+    // ports below 1024 are priveleged on mac, so i cant use 443. 8443 was recommended when i searched it
+  });
+}
 
 module.exports = app;
