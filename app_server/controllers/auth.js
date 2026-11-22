@@ -36,19 +36,19 @@ const register = async function(req, res) {
 
     const newUser = new User({ name: firstname + " " + lastname, email });
 
-    User.register(newUser, password, function(err, user) {
-        if (err) {
-            return res.status(400).render('signup', {
-                title: 'Sign up - Streamit',
-                error: err.message || 'Could not create account',
-                values
-            });
-        }
+    try {
+        await User.register(newUser, password);
 
         passport.authenticate('local')(req, res, function () {
             res.redirect('/home');
         });
-    });
+    } catch (err) {
+        return res.status(400).render('signup', {
+            title: 'Sign up - Streamit',
+            error: err.message || 'Could not create account',
+            values
+        });
+    }
 }
 
 /*
@@ -87,7 +87,10 @@ const login = async function(req, res, next) {
         }
 
         req.logIn(user, function (err) {
-            if (err) { return next(err); }
+            if (err) {
+                return next(err); 
+            }
+
             return res.redirect('/home');
         });
     })(req, res, next);
@@ -95,7 +98,10 @@ const login = async function(req, res, next) {
 
 const logout = function (req, res, next) {
     req.logout(function (err) {
-        if (err) { return next(err); }
+        if (err) {
+            return next(err); 
+        }
+        
         res.redirect('/signin');
     });
 };
