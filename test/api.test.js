@@ -43,6 +43,10 @@ before(async () => {
         "Tests must use the in-memory database, not MongoDB Atlas"
     )
 
+    // Passport's session needs a secret. Locally this comes from .env, but CI
+    // has no .env, so fall back to a throwaway value just for the test run.
+    process.env.SESSION_SECRET = process.env.SESSION_SECRET || "test-secret";
+
     // Loads express app from app.js
     app = require("../app");
 
