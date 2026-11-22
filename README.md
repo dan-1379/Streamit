@@ -1,6 +1,11 @@
 # Streamit
 
 ![API tests](https://github.com/dan-1379/Streamit/actions/workflows/tests.yml/badge.svg)
+![Last commit](https://img.shields.io/github/last-commit/dan-1379/Streamit)
+![Commit activity](https://img.shields.io/github/commit-activity/w/dan-1379/Streamit)
+![Top language](https://img.shields.io/github/languages/top/dan-1379/Streamit)
+
+
 
 **Live site:** https://streamit-vcig.onrender.com
 *(Hosted on Render's free plan: the first visit after a quiet period can take 30–60 seconds to start.)*
