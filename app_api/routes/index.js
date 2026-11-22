@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const ctrlUsers = require('../controllers/auth');
 const ctrlContent = require('../controllers/content');
 
 const ensureApiAuth = (req, res, next) => {
@@ -10,21 +9,6 @@ const ensureApiAuth = (req, res, next) => {
   
   res.status(401).json({ message: "Not authorised" });
 }
-
-// users
-router
-  .route("/login")
-  .post(ctrlUsers.userLogin)
-
-router
-  .route('/users')
-  .post(ctrlUsers.userCreateOne);
-
-router
-  .route('/users/:userid')
-  .get(ctrlUsers.userReadOne)
-  .put(ctrlUsers.userUpdateOne)
-  .delete(ctrlUsers.userDeleteOne);
 
 // content
 router
