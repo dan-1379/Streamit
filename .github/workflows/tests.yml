@@ -1,4 +1,4 @@
-# ------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 # Continuous Integration: automated API tests
 #
 # This GitHub Actions workflow runs the API test suite (test/api.test.js)
@@ -6,8 +6,10 @@
 # is opened against main. If any test fails, the commit is marked with a
 # red cross on GitHub, so broken code is caught before it is deployed.
 #
-# Reference: https://docs.github.com/en/actions
-# ------------------------------------------------------------------
+# Reference docs: 
+#   https://docs.github.com/en/actions
+#   https://docs.github.com/en/actions/tutorials/build-and-test-code/nodejs
+# ---------------------------------------------------------------------------
 
 # Name shown in the Actions tab on GitHub
 name: API tests

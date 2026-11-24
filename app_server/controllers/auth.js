@@ -23,6 +23,7 @@ const register = async function(req, res) {
     const password = req.body.password || "";
     const values = { firstname, lastname, email };
 
+    // Server-side validation: see ../utils/validation
     const errors = validateRegistration({ firstname, lastname, email, password });
 
     if (errors.length > 0) {
@@ -60,6 +61,7 @@ const login = async function(req, res, next) {
     const password = req.body.password || "";
     const values = { email };
 
+    // Server-side validation: see ../utils/validation
     const errors = validateLogin({ email, password });
 
     if (errors.length > 0) {

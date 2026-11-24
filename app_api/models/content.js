@@ -13,7 +13,8 @@ const castSchema = new mongoose.Schema({
     character: {type: String, required: true},
 }, { _id: false });
 
-const contentSchema = new mongoose.Schema({ 
+const contentSchema = new mongoose.Schema({
+    // custom string _id (slug) for clean URLs like /title/stranger-things
     _id: {type: String, required: true},
     title: {type: String, required: true},
     year: {type: String, required: true},

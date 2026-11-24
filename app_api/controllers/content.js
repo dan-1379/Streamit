@@ -22,6 +22,7 @@ const contentCreateOne = function (req, res) {
         .json(content);
     })
     .catch(err => {
+        // Maps Mongoose errors to HTTP codes: 11000 duplicate key error, 409 duplicate _id, 400 validation.
         if (err.code === 11000) {
             return res.status(409).json({ message: "Content with that id already exists" });
         }
@@ -73,7 +74,6 @@ const contentReadAll = function(req, res) {
             .json({ message: "Error retrieving content" })
     });
 };
-
 
 const contentUpdateOne = function (req, res) { 
     res

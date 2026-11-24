@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const ctrlContent = require('../controllers/content');
 
+// API auth guard — returns 401 JSON instead of redirecting (labs only cover a redirect guard for server routes).
 const ensureApiAuth = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next(); 
@@ -10,7 +11,6 @@ const ensureApiAuth = (req, res, next) => {
   res.status(401).json({ message: "Not authorised" });
 }
 
-// content
 router
   .route('/content')
   .get(ctrlContent.contentReadAll)
