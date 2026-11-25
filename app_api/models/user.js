@@ -11,6 +11,8 @@ const userSchema = new mongoose.Schema({
         required: [true, "Name is required"],
         maxlength: [100, "Name must not be longer than 100 characters"],
         trim: true,
+        // Mongoose match validator: https://mongoosejs.com/docs/schematypes.html#string-validators
+        // Unicode regex \p{L} + u flag: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Regular_expressions/Unicode_character_class_escape
         match: [/^[\p{L}' -]+$/u, "Name can only contain letters, spaces, apostrophes, and hyphens"]
     },
     email: {
